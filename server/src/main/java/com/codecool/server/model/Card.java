@@ -29,6 +29,9 @@ public class Card {
     @Column
     private String set;
 
+    @Column
+    private String imageUrl; // New field for the Cloudinary image URL
+
     @OneToMany(mappedBy = "card", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DeckCard> deckCards = new ArrayList<>();
 }

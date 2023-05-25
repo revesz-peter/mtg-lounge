@@ -1,4 +1,4 @@
-package com.codecool.server.repositories;
+package com.codecool.server.repository;
 
 import com.codecool.server.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
