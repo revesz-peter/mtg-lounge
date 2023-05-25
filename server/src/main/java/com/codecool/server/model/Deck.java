@@ -1,15 +1,13 @@
 package com.codecool.server.model;
 
+import java.util.*;
+import java.sql.Timestamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
-
-import java.sql.Timestamp;
-import java.util.*;
 
 @Data
 @Entity
@@ -38,4 +36,6 @@ public class Deck {
     @ManyToOne
     private User user;
 
+    @OneToMany(mappedBy = "deck", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DeckCard> deckCards = new ArrayList<>();
 }
