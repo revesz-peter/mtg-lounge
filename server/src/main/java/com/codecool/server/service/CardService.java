@@ -21,6 +21,21 @@ public class CardService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+    @Transactional(readOnly = true)
+    public List<CardDTO> getCardsByManaCost(String manaCost) {
+        List<Card> cards = cardRepository.findByManaCost(manaCost);
+        return cards.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<CardDTO> getCardsByNameContaining(String name) {
+        List<Card> cards = cardRepository.findByNameContainingIgnoreCase(name);
+        return cards.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
 
     private CardDTO convertToDTO(Card card) {
         return new CardDTO(
@@ -29,7 +44,8 @@ public class CardService {
                 card.getManaCost(),
                 card.getOracleText(),
                 card.getSet(),
-                card.getImageUrl()
+                card.getImageUris()
         );
     }
+
 }
