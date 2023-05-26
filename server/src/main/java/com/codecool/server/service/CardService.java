@@ -36,7 +36,7 @@ public class CardService {
                 card.getManaCost(),
                 card.getOracleText(),
                 card.getSet(),
-                card.getImageUrl()
+                card.getImageUris()
         );
     }
 }
