@@ -8,4 +8,5 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<Card, String> {
     List<Card> findByManaCost(String manaCost);
     List<Card> findByNameContainingIgnoreCase(String name);
+    List<Card> findBySet(String set);
 }

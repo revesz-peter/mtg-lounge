@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Searchfield from "./components/SearchField";
 import Card from "./components/Card";
-import { getCardsByName } from "./services/CardService";
+import Loader from "./components/Loader";
+import { getCardsByName } from "./services/cardService";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -10,7 +11,7 @@ function App() {
   const [searchedResults, setSearchedResults] = useState<Card[]>([]);
   const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
 
-  useEffect(() => {
+/*   useEffect(() => {
     const fetchCards = async () => {
       setLoading(true);
 
@@ -34,7 +35,7 @@ function App() {
     };
 
     fetchCards();
-  }, []);
+  }, []); */
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout);
@@ -67,7 +68,7 @@ function App() {
       </div>
 
       {loading ? (
-        <p>Loading...</p>
+        <Loader/>
       ) : searchedResults.length ? (
         searchedResults.map((card) => (
           <Card key={card.id} imageUris={card.imageUris} />
