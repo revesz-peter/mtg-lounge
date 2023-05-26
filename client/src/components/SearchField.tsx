@@ -5,16 +5,16 @@ interface SearchFieldProps {
   type: string;
   name: string;
   placeholder: string;
-  /* value: string;
-  handleChange: (e: ChangeEvent<HTMLInputElement>) => void; */
+  value: string;
+  handleChange: (e: ChangeEvent<HTMLInputElement>) => void; 
 }
 
 const Searchfield: React.FC<SearchFieldProps> = ({
   type,
   name,
   placeholder,
-  /* value,
-  handleChange, */
+  value,
+  handleChange, 
 }) => {
   return (
     <div>
@@ -25,8 +25,8 @@ const Searchfield: React.FC<SearchFieldProps> = ({
         id={name}
         name={name}
         placeholder={placeholder}
-        /* value={value}
-        onChange={handleChange} */
+        value={value}
+        onChange={handleChange} 
         required
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-[#4649ff] focus:border-[#4649ff] outline-none block w-full p-3"
       />
