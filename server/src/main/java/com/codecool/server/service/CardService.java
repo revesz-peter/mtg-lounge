@@ -29,6 +29,14 @@ public class CardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<CardDTO> getCardsByNameContaining(String name) {
+        List<Card> cards = cardRepository.findByNameContainingIgnoreCase(name);
+        return cards.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     private CardDTO convertToDTO(Card card) {
         return new CardDTO(
                 card.getId(),
@@ -39,4 +47,5 @@ public class CardService {
                 card.getImageUris()
         );
     }
+
 }
