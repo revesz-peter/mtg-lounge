@@ -13,7 +13,7 @@ function App() {
     const [searchedResults, setSearchedResults] = useState<Card[]>([]);
   const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
 
-/*   useEffect(() => {
+    useEffect(() => {
     const fetchCards = async () => {
       setLoading(true);
 
@@ -37,7 +37,7 @@ function App() {
     };
 
     fetchCards();
-  }, []); */
+  }, []);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout);

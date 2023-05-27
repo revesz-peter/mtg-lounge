@@ -19,6 +19,12 @@ public class CardController {
     @Autowired
     private CardService cardService;
 
+    @GetMapping
+    public ResponseEntity<List<CardDTO>> getAllCards() {
+        List<CardDTO> cardDTOs = cardService.getAllCards();
+        return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
+    }
+
     @GetMapping("/search/{name}")
     public ResponseEntity<List<CardDTO>> getCardsByName(@PathVariable String name) {
         List<CardDTO> cardDTOs = cardService.getCardsByNameContaining(name);
