@@ -6,12 +6,14 @@ import { getCardsByName } from "./services/cardService";
 
 function App() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [allCards, setAllCards] = useState<Card[]>([]);
+  // @ts-ignore
+    const [allCards, setAllCards] = useState<Card[]>([]);
   const [searchText, setSearchText] = useState<string>("");
-  const [searchedResults, setSearchedResults] = useState<Card[]>([]);
+  // @ts-ignore
+    const [searchedResults, setSearchedResults] = useState<Card[]>([]);
   const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
 
-/*   useEffect(() => {
+    useEffect(() => {
     const fetchCards = async () => {
       setLoading(true);
 
@@ -35,7 +37,7 @@ function App() {
     };
 
     fetchCards();
-  }, []); */
+  }, []);
 
   const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     clearTimeout(searchTimeout);
