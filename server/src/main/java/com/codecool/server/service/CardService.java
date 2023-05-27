@@ -30,6 +30,14 @@ public class CardService {
     }
 
     @Transactional(readOnly = true)
+    public List<CardDTO> getCardsBySet(String set) {
+        List<Card> cards = cardRepository.findBySet(set);
+        return cards.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<CardDTO> getCardsByNameContaining(String name) {
         List<Card> cards = cardRepository.findByNameContainingIgnoreCase(name);
         return cards.stream()
