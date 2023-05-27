@@ -52,7 +52,7 @@ This project is built with an array of robust and reliable technologies to ensur
 ### Installation
 1. Clone the repo
     ```sh
-    git clone https://github.com/your_username_/Project-Name.git
+    git clone https://github.com/revesz21/mtg-lounge.git
     ```
 2. Run the Spring Boot server
     ```sh
@@ -62,5 +62,3 @@ This project is built with an array of robust and reliable technologies to ensur
     ```sh
     npm start
     ```
-
-Please note: Make sure to replace `your_username_` and `Project-Name` with your actual GitHub username and project name.
