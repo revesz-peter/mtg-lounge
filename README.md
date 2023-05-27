@@ -54,11 +54,18 @@ This project is built with an array of robust and reliable technologies to ensur
     ```sh
     git clone https://github.com/revesz21/mtg-lounge.git
     ```
-2. Run the Spring Boot server
-    ```sh
+2. Install NPM packages
+    ```bash
+    cd client
+    npm install
+    ```
+3. Run the Spring Boot server
+    ```bash
+    cd ../server
     mvn spring-boot:run
     ```
-3. Start the React app
-    ```sh
+4. Start the React app (in another terminal window)
+    ```bash
+    cd ../client
     npm start
     ```
