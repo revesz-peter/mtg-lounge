@@ -21,8 +21,6 @@ This project is built with an array of robust and reliable technologies to ensur
 
 - [Vite](https://vitejs.dev/): A build tool that significantly improves the frontend development experience. It provides faster and leaner development for modern web projects.
 
-- [Axios](https://axios-http.com/): A promise-based HTTP client for making HTTP requests from Node.js or XMLHttpRequests from the browser. It is used in this project for interacting with the API.
-
 - [React Router Dom](https://reactrouter.com/): The standard routing library for React, used to create a single page application with navigation without page refreshes.
 
 - [Tailwind CSS](https://tailwindcss.com/): A highly customizable, low-level CSS framework that gives you all the building blocks you need to build bespoke designs.
