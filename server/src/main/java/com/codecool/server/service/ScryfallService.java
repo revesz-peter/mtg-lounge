@@ -34,6 +34,24 @@ public class ScryfallService {
             cardRepository.save(card);
         }
     }
+    @PostConstruct
+    public void fetchAndSaveExperimentalSynthesizer() {
+        final String url = "https://api.scryfall.com/cards/named?exact=experimentalsynthesizer";
+        Map<String,Object> cardData = restTemplate.getForObject(url, Map.class);
+
+        if (cardData != null) {
+            Card card = new Card();
+            card.setId((String) cardData.get("id"));
+            card.setName((String) cardData.get("name"));
+            card.setManaCost((String) cardData.get("mana_cost"));
+            card.setOracleText((String) cardData.get("oracle_text"));
+            card.setSet((String) cardData.get("set"));
+            Map<String, String> imageUris = (Map<String, String>) cardData.get("image_uris");
+            card.setImageUris(imageUris.get("normal")); // Get the 'normal' image URI
+            cardRepository.save(card);
+        }
+    }
+
     public void fetchAndSaveDMUCards() {
         try {
             String url = "https://api.scryfall.com/cards/search?q=name:birds%20of%20paradise%20cheapest:usd";
