@@ -55,32 +55,42 @@ function App() {
   };
 
   return (
-    <section className="max-w-7xl mx-auto">
-      <div className="mt-5">
-      <Searchfield
-        labelName="Search cards"
-        type="text"
-        name="text"
-        placeholder="Search cards"
-        value={searchText}
-        handleChange={handleSearchChange}
-      />
+    <section className="max-w-7xl mx-auto flex">
+      <div className="w-2/3">
+        <div className="mt-5">
+          <Searchfield
+            labelName="Search cards"
+            type="text"
+            name="text"
+            placeholder="Search cards"
+            value={searchText}
+            handleChange={handleSearchChange}
+          />
+        </div>
+  
+        {loading ? (
+          <Loader />
+        ) : (
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            {searchedResults.length ? (
+              searchedResults.map((card) => (
+                <Card key={card.id} imageUris={card.imageUris} />
+              ))
+            ) : (
+              allCards.map((card) => (
+                <Card key={card.id} imageUris={card.imageUris} />
+              ))
+            )}
+          </div>
+        )}
       </div>
-
-      {loading ? (
-        <Loader/>
-      ) : searchedResults.length ? (
-        searchedResults.map((card) => (
-          <Card key={card.id} imageUris={card.imageUris} />
-        ))
-      ) : (
-        
-        allCards.map((card) => (
-          <Card key={card.id} imageUris={card.imageUris} />
-        ))
-      )}
+      <div className="w-1/3 border-2 border-gray-300 h-screen ml-4 m-7">
+        {/* This is the future deck slot */}
+        {/* You can add cards here */}
+      </div>
     </section>
   );
+  
 }
 
 export default App;
