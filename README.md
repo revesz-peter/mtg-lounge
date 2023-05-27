@@ -29,6 +29,8 @@ This project is built with an array of robust and reliable technologies to ensur
 
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa): It simplifies the development of creating a data access layer by reducing the amount of boilerplate code required.
 
+- [Hibernate](https://hibernate.org/): An object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database, enabling developers to more easily manipulate database data.
+
 - [PostgreSQL](https://www.postgresql.org/): An advanced, open-source relational database management system.
 
 - [Lombok](https://projectlombok.org/): A Java library that plugs into your editor and build tools, spicing up your Java by reducing the boilerplate code.
