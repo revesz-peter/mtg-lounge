@@ -74,14 +74,16 @@ function App() {
         () => ({
             accept: "card",
             drop: (item: { type: string; id: string }) => {
-              const card = allCards.find((card) => card.id === item.id);
-              if (card) {
-                setDeck((prevDeck) => [...prevDeck, card]);
-                setDeckCounts((prevCounts) => ({
-                  ...prevCounts,
-                  [card.id]: prevCounts[card.id] ? prevCounts[card.id] + 1 : 1,
-                }));
-              }
+                const card = allCards.find((card) => card.id === item.id);
+                if (card) {
+                    setDeck((prevDeck) => [...prevDeck, card]);
+                    setDeckCounts((prevCounts) => ({
+                        ...prevCounts,
+                        [card.id]: prevCounts[card.id]
+                            ? prevCounts[card.id] + 1
+                            : 1,
+                    }));
+                }
             },
             collect: (monitor) => ({
                 isOver: !!monitor.isOver(),
@@ -95,22 +97,28 @@ function App() {
         () => ({
             accept: "deckCard",
             drop: (item: { type: string; id: string }) => {
-              setDeck((prevDeck) => prevDeck.filter((card) => card.id !== item.id));
-              setDeckCounts((prevCounts) => {
-                  if (prevCounts[item.id] && prevCounts[item.id] > 1) {
-                      return {
-                          ...prevCounts,
-                          [item.id]: prevCounts[item.id] - 1,
-                      };
-                  } else {
-                      const { [item.id]: _, ...rest } = prevCounts;
-                      return rest;
-                  }
-              });
-          }
+                setDeck((prevDeck) =>
+                    prevDeck.filter((card) => card.id !== item.id)
+                );
+                setDeckCounts((prevCounts) => {
+                    if (prevCounts[item.id] && prevCounts[item.id] > 1) {
+                        return {
+                            ...prevCounts,
+                            [item.id]: prevCounts[item.id] - 1,
+                        };
+                    } else {
+                        const { [item.id]: _, ...rest } = prevCounts;
+                        return rest;
+                    }
+                });
+            },
         }),
         [deck]
     );
+
+    useEffect(() => {
+        console.log(deck);
+    }, [deck]);
 
     return (
         <div
@@ -141,6 +149,24 @@ function App() {
                                           imageUris={card.imageUris}
                                           id={card.id}
                                           name={card.name}
+                                          addToDeck={(card: CardType) => {
+                                            const existingCardIndex = deck.findIndex((deckCard) => deckCard.id === card.id);
+                                            if (existingCardIndex > -1) {
+                                              setDeckCounts((prevCounts) => {
+                                                const updatedCounts = { ...prevCounts, [card.id]: (prevCounts[card.id] || 0) + 1 };
+                                                return updatedCounts;
+                                              });
+                                            } else {
+                                              setDeck((prevDeck) => {
+                                                const updatedDeck = [...prevDeck, card];
+                                                return updatedDeck;
+                                              });
+                                              setDeckCounts((prevCounts) => {
+                                                const updatedCounts = { ...prevCounts, [card.id]: 1 };
+                                                return updatedCounts;
+                                              });
+                                            }
+                                          }}
                                       />
                                   ))
                                 : allCards.map((card) => (
@@ -149,6 +175,24 @@ function App() {
                                           imageUris={card.imageUris}
                                           id={card.id}
                                           name={card.name}
+                                          addToDeck={(card: CardType) => {
+                                            const existingCardIndex = deck.findIndex((deckCard) => deckCard.id === card.id);
+                                            if (existingCardIndex > -1) {
+                                              setDeckCounts((prevCounts) => {
+                                                const updatedCounts = { ...prevCounts, [card.id]: (prevCounts[card.id] || 0) + 1 };
+                                                return updatedCounts;
+                                              });
+                                            } else {
+                                              setDeck((prevDeck) => {
+                                                const updatedDeck = [...prevDeck, card];
+                                                return updatedDeck;
+                                              });
+                                              setDeckCounts((prevCounts) => {
+                                                const updatedCounts = { ...prevCounts, [card.id]: 1 };
+                                                return updatedCounts;
+                                              });
+                                            }
+                                          }}
                                       />
                                   ))}
                         </div>
@@ -159,18 +203,18 @@ function App() {
                     style={{ backgroundColor: isOver ? "lightblue" : "white" }}
                     className="w-1/3 border-2 border-gray-300 h-screen ml-4 m-7"
                 >
-                   {Object.entries(deckCounts).map(([id, count]) => {
-  const card = allCards.find((card) => card.id === id);
-  return card ? (
-    <DeckCard
-      key={card.id}
-      imageUris={card.imageUris}
-      id={card.id}
-      name={card.name}
-      count={count}
-    />
-  ) : null;
-})}
+                    {Object.entries(deckCounts).map(([id, count]) => {
+                        const card = allCards.find((card) => card.id === id);
+                        return card ? (
+                            <DeckCard
+                                key={card.id}
+                                imageUris={card.imageUris}
+                                id={card.id}
+                                name={card.name}
+                                count={count}
+                            />
+                        ) : null;
+                    })}
                 </div>
             </section>
         </div>

@@ -1,5 +1,4 @@
 import { useDrag } from "react-dnd";
-import { CardType } from "../App"
 import { useState } from "react";
 
 interface DeckCardProps {
