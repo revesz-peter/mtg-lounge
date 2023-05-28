@@ -1,14 +1,15 @@
 import { useDrag } from "react-dnd";
 
-interface CardProps {
+interface DeckCardProps {
     id: string;
     imageUris: string;
     name: string;
+    
 }
 
-const Card: React.FC<CardProps> = ({ id, imageUris, name }) => {
+const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: "card",
+        type: "deckCard",
         item: { id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
@@ -21,9 +22,11 @@ const Card: React.FC<CardProps> = ({ id, imageUris, name }) => {
             style={{ opacity: isDragging ? 0.5 : 1 }}
             className="flex flex-col items-center p-2"
         >
-            <img src={imageUris} alt="Card" className="w-full h-auto" />
+            <div className="bg-gray-200 rounded flex w-full">
+                <p className="text-gray-700 m-auto">{name}</p>
+            </div>
         </div>
     );
 };
 
-export default Card;
+export default DeckCard;
