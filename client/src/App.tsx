@@ -6,7 +6,7 @@ import { useDrop } from "react-dnd";
 import { getCardsByName } from "./services/cardService";
 import DeckCard from "./components/DeckCard";
 
-interface CardType {
+export interface CardType {
     id: string;
     imageUris: string;
     name: string;
@@ -149,6 +149,7 @@ function App() {
                             imageUris={card.imageUris}
                             id={card.id}
                             name={card.name}
+                            deck={deck}
                         />
                     ))}
                 </div>
