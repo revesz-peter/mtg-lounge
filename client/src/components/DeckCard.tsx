@@ -1,16 +1,15 @@
 import { useDrag } from "react-dnd";
-import { CardType } from "../App"
 import { useState } from "react";
 
 interface DeckCardProps {
     id: string;
     imageUris: string;
     name: string;
-    deck: CardType[];
+    count: number;
     
 }
 
-const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, deck}) => {
+const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count}) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "deckCard",
         item: { id },
@@ -18,8 +17,6 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, deck}) => {
             isDragging: !!monitor.isDragging(),
         }),
     }));
-
-    const count = deck.filter((card) => card.name === name).length;
 
     const [showCard, setShowCard] = useState(false);
 
