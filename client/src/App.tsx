@@ -94,26 +94,34 @@ function App() {
 
     // New drop zone (for removing from the deck)
     const [, outsideDrop] = useDrop(
-        () => ({
-            accept: "deckCard",
-            drop: (item: { type: string; id: string }) => {
-                setDeck((prevDeck) =>
-                    prevDeck.filter((card) => card.id !== item.id)
-                );
-                setDeckCounts((prevCounts) => {
-                    if (prevCounts[item.id] && prevCounts[item.id] > 1) {
-                        return {
-                            ...prevCounts,
-                            [item.id]: prevCounts[item.id] - 1,
-                        };
-                    } else {
-                        const { [item.id]: _, ...rest } = prevCounts;
-                        return rest;
-                    }
-                });
-            },
-        }),
-        [deck]
+      () => ({
+        accept: 'deckCard',
+        drop: (item: { type: string, id: string }) => {
+          const card = deck.find((deckCard) => deckCard.id === item.id);
+          if (card) {
+            setDeck((prevDeck) => {
+              const updatedDeck = [...prevDeck];
+              const cardIndex = updatedDeck.findIndex((deckCard) => deckCard.id === item.id);
+              if (cardIndex > -1) {
+                updatedDeck.splice(cardIndex, 1);
+              }
+              return updatedDeck;
+            });
+            setDeckCounts((prevCounts) => {
+              if (prevCounts[card.id] && prevCounts[card.id] > 1) {
+                return {
+                  ...prevCounts,
+                  [card.id]: prevCounts[card.id] - 1,
+                };
+              } else {
+                const { [card.id]: _, ...rest } = prevCounts;
+                return rest;
+              }
+            });
+          }
+        },
+      }),
+      [deck]
     );
 
     useEffect(() => {
