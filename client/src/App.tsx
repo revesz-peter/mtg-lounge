@@ -19,6 +19,7 @@ function App() {
     const [searchText, setSearchText] = useState<string>("");
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
+    const [deckCounts, setDeckCounts] = useState<{ [id: string]: number }>({});
 
     useEffect(() => {
         const fetchCards = async () => {
@@ -73,10 +74,14 @@ function App() {
         () => ({
             accept: "card",
             drop: (item: { type: string; id: string }) => {
-                const card = allCards.find((card) => card.id === item.id);
-                if (card) {
-                    setDeck([...deck, card]);
-                }
+              const card = allCards.find((card) => card.id === item.id);
+              if (card) {
+                setDeck((prevDeck) => [...prevDeck, card]);
+                setDeckCounts((prevCounts) => ({
+                  ...prevCounts,
+                  [card.id]: prevCounts[card.id] ? prevCounts[card.id] + 1 : 1,
+                }));
+              }
             },
             collect: (monitor) => ({
                 isOver: !!monitor.isOver(),
@@ -90,8 +95,19 @@ function App() {
         () => ({
             accept: "deckCard",
             drop: (item: { type: string; id: string }) => {
-                setDeck(deck.filter((card) => card.id !== item.id));
-            },
+              setDeck((prevDeck) => prevDeck.filter((card) => card.id !== item.id));
+              setDeckCounts((prevCounts) => {
+                  if (prevCounts[item.id] && prevCounts[item.id] > 1) {
+                      return {
+                          ...prevCounts,
+                          [item.id]: prevCounts[item.id] - 1,
+                      };
+                  } else {
+                      const { [item.id]: _, ...rest } = prevCounts;
+                      return rest;
+                  }
+              });
+          }
         }),
         [deck]
     );
@@ -143,15 +159,18 @@ function App() {
                     style={{ backgroundColor: isOver ? "lightblue" : "white" }}
                     className="w-1/3 border-2 border-gray-300 h-screen ml-4 m-7"
                 >
-                    {deck.map((card) => (
-                        <DeckCard
-                            key={card.id}
-                            imageUris={card.imageUris}
-                            id={card.id}
-                            name={card.name}
-                            deck={deck}
-                        />
-                    ))}
+                   {Object.entries(deckCounts).map(([id, count]) => {
+  const card = allCards.find((card) => card.id === id);
+  return card ? (
+    <DeckCard
+      key={card.id}
+      imageUris={card.imageUris}
+      id={card.id}
+      name={card.name}
+      count={count}
+    />
+  ) : null;
+})}
                 </div>
             </section>
         </div>
