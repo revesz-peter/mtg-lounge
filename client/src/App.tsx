@@ -9,6 +9,7 @@ import DeckCard from "./components/DeckCard";
 interface CardType {
     id: string;
     imageUris: string;
+    name: string;
 }
 
 function App() {
@@ -123,6 +124,7 @@ function App() {
                                           key={card.id}
                                           imageUris={card.imageUris}
                                           id={card.id}
+                                          name={card.name}
                                       />
                                   ))
                                 : allCards.map((card) => (
@@ -130,6 +132,7 @@ function App() {
                                           key={card.id}
                                           imageUris={card.imageUris}
                                           id={card.id}
+                                          name={card.name}
                                       />
                                   ))}
                         </div>
@@ -145,6 +148,7 @@ function App() {
                             key={card.id}
                             imageUris={card.imageUris}
                             id={card.id}
+                            name={card.name}
                         />
                     ))}
                 </div>
