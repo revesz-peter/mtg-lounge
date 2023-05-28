@@ -1,13 +1,13 @@
 import { useDrag } from "react-dnd";
 
-interface CardProps {
+interface DeckCardProps {
     id: string;
     imageUris: string;
 }
 
-const Card: React.FC<CardProps> = ({ id, imageUris }) => {
+const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
-        type: "card",
+        type: "deckCard",
         item: { id },
         collect: (monitor) => ({
             isDragging: !!monitor.isDragging(),
@@ -25,4 +25,4 @@ const Card: React.FC<CardProps> = ({ id, imageUris }) => {
     );
 };
 
-export default Card;
+export default DeckCard;
