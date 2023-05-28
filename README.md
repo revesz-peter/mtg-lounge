@@ -23,6 +23,8 @@ This project is built with an array of robust and reliable technologies to ensur
 
 - [React Router Dom](https://reactrouter.com/): The standard routing library for React, used to create a single page application with navigation without page refreshes.
 
+- [React DnD](https://react-dnd.github.io/react-dnd/about): A set of React higher-order components to help you build complex drag and drop interfaces while keeping your components decoupled.
+
 - [Tailwind CSS](https://tailwindcss.com/): A highly customizable, low-level CSS framework that gives you all the building blocks you need to build bespoke designs.
 
 - [Spring Boot](https://spring.io/projects/spring-boot): An open-source Java-based framework used to create stand-alone, production-grade Spring-based Applications with minimal effort.
