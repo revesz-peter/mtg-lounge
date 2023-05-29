@@ -3,7 +3,7 @@ import Searchfield from "./components/SearchField";
 import Card from "./components/Card";
 import Loader from "./components/Loader";
 import { fetchCards, getCardsByName } from "./services/cardService";
-import { useDeckManager } from './hooks/useDeckManager';
+import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
 
 export interface CardType {
@@ -19,7 +19,15 @@ function App() {
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
 
-    const { deck, setDeck, deckCounts, setDeckCounts, deckDrop, outsideDrop, isOver } = useDeckManager(allCards);
+    const {
+        deck,
+        setDeck,
+        deckCounts,
+        setDeckCounts,
+        deckDrop,
+        outsideDrop,
+        isOver,
+    } = useDeckManager(allCards);
 
     useEffect(() => {
         const loadCards = async () => {
@@ -55,6 +63,45 @@ function App() {
         );
     };
 
+    const addToDeck = (card: CardType) => {
+        const existingCardIndex = deck.findIndex(
+            (deckCard) => deckCard.id === card.id
+        );
+        if (existingCardIndex > -1) {
+            setDeckCounts((prevCounts) => {
+                const updatedCounts = {
+                    ...prevCounts,
+                    [card.id]: (prevCounts[card.id] || 0) + 1,
+                };
+                return updatedCounts;
+            });
+        } else {
+            setDeck((prevDeck) => {
+                const updatedDeck = [...prevDeck, card];
+                return updatedDeck;
+            });
+            setDeckCounts((prevCounts) => {
+                const updatedCounts = {
+                    ...prevCounts,
+                    [card.id]: 1,
+                };
+                return updatedCounts;
+            });
+        }
+    };
+
+    const renderCards = (cards: CardType[]) => {
+        return cards.map((card) => (
+            <Card
+                key={card.id}
+                imageUris={card.imageUris}
+                id={card.id}
+                name={card.name}
+                addToDeck={addToDeck}
+            />
+        ));
+    };
+
     useEffect(() => {
         console.log(deck);
     }, [deck]);
@@ -82,108 +129,8 @@ function App() {
                     ) : (
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {searchedResults.length
-                                ? searchedResults.map((card) => (
-                                      <Card
-                                          key={card.id}
-                                          imageUris={card.imageUris}
-                                          id={card.id}
-                                          name={card.name}
-                                          addToDeck={(card: CardType) => {
-                                              const existingCardIndex =
-                                                  deck.findIndex(
-                                                      (deckCard) =>
-                                                          deckCard.id ===
-                                                          card.id
-                                                  );
-                                              if (existingCardIndex > -1) {
-                                                  setDeckCounts(
-                                                      (prevCounts) => {
-                                                          const updatedCounts =
-                                                              {
-                                                                  ...prevCounts,
-                                                                  [card.id]:
-                                                                      (prevCounts[
-                                                                          card
-                                                                              .id
-                                                                      ] || 0) +
-                                                                      1,
-                                                              };
-                                                          return updatedCounts;
-                                                      }
-                                                  );
-                                              } else {
-                                                  setDeck((prevDeck) => {
-                                                      const updatedDeck = [
-                                                          ...prevDeck,
-                                                          card,
-                                                      ];
-                                                      return updatedDeck;
-                                                  });
-                                                  setDeckCounts(
-                                                      (prevCounts) => {
-                                                          const updatedCounts =
-                                                              {
-                                                                  ...prevCounts,
-                                                                  [card.id]: 1,
-                                                              };
-                                                          return updatedCounts;
-                                                      }
-                                                  );
-                                              }
-                                          }}
-                                      />
-                                  ))
-                                : allCards.map((card) => (
-                                      <Card
-                                          key={card.id}
-                                          imageUris={card.imageUris}
-                                          id={card.id}
-                                          name={card.name}
-                                          addToDeck={(card: CardType) => {
-                                              const existingCardIndex =
-                                                  deck.findIndex(
-                                                      (deckCard) =>
-                                                          deckCard.id ===
-                                                          card.id
-                                                  );
-                                              if (existingCardIndex > -1) {
-                                                  setDeckCounts(
-                                                      (prevCounts) => {
-                                                          const updatedCounts =
-                                                              {
-                                                                  ...prevCounts,
-                                                                  [card.id]:
-                                                                      (prevCounts[
-                                                                          card
-                                                                              .id
-                                                                      ] || 0) +
-                                                                      1,
-                                                              };
-                                                          return updatedCounts;
-                                                      }
-                                                  );
-                                              } else {
-                                                  setDeck((prevDeck) => {
-                                                      const updatedDeck = [
-                                                          ...prevDeck,
-                                                          card,
-                                                      ];
-                                                      return updatedDeck;
-                                                  });
-                                                  setDeckCounts(
-                                                      (prevCounts) => {
-                                                          const updatedCounts =
-                                                              {
-                                                                  ...prevCounts,
-                                                                  [card.id]: 1,
-                                                              };
-                                                          return updatedCounts;
-                                                      }
-                                                  );
-                                              }
-                                          }}
-                                      />
-                                  ))}
+                                ? renderCards(searchedResults)
+                                : renderCards(allCards)}
                         </div>
                     )}
                 </div>
