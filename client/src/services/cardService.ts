@@ -10,3 +10,17 @@ export const getCardsByName = async (name: string) => {
         console.error(`Error fetching cards: ${error}`);
     }
 };
+
+export const fetchCards = async () => {
+    try {
+        const response = await axios.get("http://localhost:8080/api/cards");
+        if (response.status === 200) {
+            return response.data;
+        } else {
+            throw new Error("Error fetching cards");
+        }
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};

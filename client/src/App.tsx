@@ -3,7 +3,7 @@ import Searchfield from "./components/SearchField";
 import Card from "./components/Card";
 import Loader from "./components/Loader";
 import { useDrop } from "react-dnd";
-import { getCardsByName } from "./services/cardService";
+import { fetchCards, getCardsByName } from "./services/cardService";
 import DeckCard from "./components/DeckCard";
 
 export interface CardType {
@@ -22,32 +22,18 @@ function App() {
     const [deckCounts, setDeckCounts] = useState<{ [id: string]: number }>({});
 
     useEffect(() => {
-        const fetchCards = async () => {
+        const loadCards = async () => {
             setLoading(true);
-
             try {
-                const response = await fetch(
-                    "http://localhost:8080/api/cards",
-                    {
-                        method: "GET",
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                    }
-                );
-
-                if (response.ok) {
-                    const result = await response.json();
-                    setAllCards(result);
-                }
+                const result = await fetchCards();
+                setAllCards(result);
             } catch (error) {
                 alert(error);
             } finally {
                 setLoading(false);
             }
         };
-
-        fetchCards();
+        loadCards();
     }, []);
 
     const handleSearchChange = async (
@@ -94,34 +80,36 @@ function App() {
 
     // New drop zone (for removing from the deck)
     const [, outsideDrop] = useDrop(
-      () => ({
-        accept: 'deckCard',
-        drop: (item: { type: string, id: string }) => {
-          const card = deck.find((deckCard) => deckCard.id === item.id);
-          if (card) {
-            setDeck((prevDeck) => {
-              const updatedDeck = [...prevDeck];
-              const cardIndex = updatedDeck.findIndex((deckCard) => deckCard.id === item.id);
-              if (cardIndex > -1) {
-                updatedDeck.splice(cardIndex, 1);
-              }
-              return updatedDeck;
-            });
-            setDeckCounts((prevCounts) => {
-              if (prevCounts[card.id] && prevCounts[card.id] > 1) {
-                return {
-                  ...prevCounts,
-                  [card.id]: prevCounts[card.id] - 1,
-                };
-              } else {
-                const { [card.id]: _, ...rest } = prevCounts;
-                return rest;
-              }
-            });
-          }
-        },
-      }),
-      [deck]
+        () => ({
+            accept: "deckCard",
+            drop: (item: { type: string; id: string }) => {
+                const card = deck.find((deckCard) => deckCard.id === item.id);
+                if (card) {
+                    setDeck((prevDeck) => {
+                        const updatedDeck = [...prevDeck];
+                        const cardIndex = updatedDeck.findIndex(
+                            (deckCard) => deckCard.id === item.id
+                        );
+                        if (cardIndex > -1) {
+                            updatedDeck.splice(cardIndex, 1);
+                        }
+                        return updatedDeck;
+                    });
+                    setDeckCounts((prevCounts) => {
+                        if (prevCounts[card.id] && prevCounts[card.id] > 1) {
+                            return {
+                                ...prevCounts,
+                                [card.id]: prevCounts[card.id] - 1,
+                            };
+                        } else {
+                            const { [card.id]: _, ...rest } = prevCounts;
+                            return rest;
+                        }
+                    });
+                }
+            },
+        }),
+        [deck]
     );
 
     useEffect(() => {
@@ -158,22 +146,47 @@ function App() {
                                           id={card.id}
                                           name={card.name}
                                           addToDeck={(card: CardType) => {
-                                            const existingCardIndex = deck.findIndex((deckCard) => deckCard.id === card.id);
-                                            if (existingCardIndex > -1) {
-                                              setDeckCounts((prevCounts) => {
-                                                const updatedCounts = { ...prevCounts, [card.id]: (prevCounts[card.id] || 0) + 1 };
-                                                return updatedCounts;
-                                              });
-                                            } else {
-                                              setDeck((prevDeck) => {
-                                                const updatedDeck = [...prevDeck, card];
-                                                return updatedDeck;
-                                              });
-                                              setDeckCounts((prevCounts) => {
-                                                const updatedCounts = { ...prevCounts, [card.id]: 1 };
-                                                return updatedCounts;
-                                              });
-                                            }
+                                              const existingCardIndex =
+                                                  deck.findIndex(
+                                                      (deckCard) =>
+                                                          deckCard.id ===
+                                                          card.id
+                                                  );
+                                              if (existingCardIndex > -1) {
+                                                  setDeckCounts(
+                                                      (prevCounts) => {
+                                                          const updatedCounts =
+                                                              {
+                                                                  ...prevCounts,
+                                                                  [card.id]:
+                                                                      (prevCounts[
+                                                                          card
+                                                                              .id
+                                                                      ] || 0) +
+                                                                      1,
+                                                              };
+                                                          return updatedCounts;
+                                                      }
+                                                  );
+                                              } else {
+                                                  setDeck((prevDeck) => {
+                                                      const updatedDeck = [
+                                                          ...prevDeck,
+                                                          card,
+                                                      ];
+                                                      return updatedDeck;
+                                                  });
+                                                  setDeckCounts(
+                                                      (prevCounts) => {
+                                                          const updatedCounts =
+                                                              {
+                                                                  ...prevCounts,
+                                                                  [card.id]: 1,
+                                                              };
+                                                          return updatedCounts;
+                                                      }
+                                                  );
+                                              }
                                           }}
                                       />
                                   ))
@@ -184,22 +197,47 @@ function App() {
                                           id={card.id}
                                           name={card.name}
                                           addToDeck={(card: CardType) => {
-                                            const existingCardIndex = deck.findIndex((deckCard) => deckCard.id === card.id);
-                                            if (existingCardIndex > -1) {
-                                              setDeckCounts((prevCounts) => {
-                                                const updatedCounts = { ...prevCounts, [card.id]: (prevCounts[card.id] || 0) + 1 };
-                                                return updatedCounts;
-                                              });
-                                            } else {
-                                              setDeck((prevDeck) => {
-                                                const updatedDeck = [...prevDeck, card];
-                                                return updatedDeck;
-                                              });
-                                              setDeckCounts((prevCounts) => {
-                                                const updatedCounts = { ...prevCounts, [card.id]: 1 };
-                                                return updatedCounts;
-                                              });
-                                            }
+                                              const existingCardIndex =
+                                                  deck.findIndex(
+                                                      (deckCard) =>
+                                                          deckCard.id ===
+                                                          card.id
+                                                  );
+                                              if (existingCardIndex > -1) {
+                                                  setDeckCounts(
+                                                      (prevCounts) => {
+                                                          const updatedCounts =
+                                                              {
+                                                                  ...prevCounts,
+                                                                  [card.id]:
+                                                                      (prevCounts[
+                                                                          card
+                                                                              .id
+                                                                      ] || 0) +
+                                                                      1,
+                                                              };
+                                                          return updatedCounts;
+                                                      }
+                                                  );
+                                              } else {
+                                                  setDeck((prevDeck) => {
+                                                      const updatedDeck = [
+                                                          ...prevDeck,
+                                                          card,
+                                                      ];
+                                                      return updatedDeck;
+                                                  });
+                                                  setDeckCounts(
+                                                      (prevCounts) => {
+                                                          const updatedCounts =
+                                                              {
+                                                                  ...prevCounts,
+                                                                  [card.id]: 1,
+                                                              };
+                                                          return updatedCounts;
+                                                      }
+                                                  );
+                                              }
                                           }}
                                       />
                                   ))}
