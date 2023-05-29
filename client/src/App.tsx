@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import Searchfield from "./components/SearchField";
 import Card from "./components/Card";
 import Loader from "./components/Loader";
-import { useDrop } from "react-dnd";
 import { fetchCards, getCardsByName } from "./services/cardService";
+import { useDeckManager } from './hooks/useDeckManager';
 import DeckCard from "./components/DeckCard";
 
 export interface CardType {
@@ -15,11 +15,11 @@ export interface CardType {
 function App() {
     const [loading, setLoading] = useState<boolean>(false);
     const [allCards, setAllCards] = useState<CardType[]>([]);
-    const [deck, setDeck] = useState<CardType[]>([]);
     const [searchText, setSearchText] = useState<string>("");
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
-    const [deckCounts, setDeckCounts] = useState<{ [id: string]: number }>({});
+
+    const { deck, setDeck, deckCounts, setDeckCounts, deckDrop, outsideDrop, isOver } = useDeckManager(allCards);
 
     useEffect(() => {
         const loadCards = async () => {
@@ -54,63 +54,6 @@ function App() {
             }, 500)
         );
     };
-
-    // Original drop zone (for adding to the deck)
-    const [{ isOver }, deckDrop] = useDrop(
-        () => ({
-            accept: "card",
-            drop: (item: { type: string; id: string }) => {
-                const card = allCards.find((card) => card.id === item.id);
-                if (card) {
-                    setDeck((prevDeck) => [...prevDeck, card]);
-                    setDeckCounts((prevCounts) => ({
-                        ...prevCounts,
-                        [card.id]: prevCounts[card.id]
-                            ? prevCounts[card.id] + 1
-                            : 1,
-                    }));
-                }
-            },
-            collect: (monitor) => ({
-                isOver: !!monitor.isOver(),
-            }),
-        }),
-        [allCards, deck]
-    );
-
-    // New drop zone (for removing from the deck)
-    const [, outsideDrop] = useDrop(
-        () => ({
-            accept: "deckCard",
-            drop: (item: { type: string; id: string }) => {
-                const card = deck.find((deckCard) => deckCard.id === item.id);
-                if (card) {
-                    setDeck((prevDeck) => {
-                        const updatedDeck = [...prevDeck];
-                        const cardIndex = updatedDeck.findIndex(
-                            (deckCard) => deckCard.id === item.id
-                        );
-                        if (cardIndex > -1) {
-                            updatedDeck.splice(cardIndex, 1);
-                        }
-                        return updatedDeck;
-                    });
-                    setDeckCounts((prevCounts) => {
-                        if (prevCounts[card.id] && prevCounts[card.id] > 1) {
-                            return {
-                                ...prevCounts,
-                                [card.id]: prevCounts[card.id] - 1,
-                            };
-                        } else {
-                            const { [card.id]: _, ...rest } = prevCounts;
-                            return rest;
-                        }
-                    });
-                }
-            },
-        }),
-        [deck]
-    );
 
     useEffect(() => {
         console.log(deck);
