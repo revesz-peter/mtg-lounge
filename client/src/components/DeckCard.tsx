@@ -6,10 +6,9 @@ interface DeckCardProps {
     imageUris: string;
     name: string;
     count: number;
-    
 }
 
-const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count}) => {
+const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
     const [{ isDragging }, drag] = useDrag(() => ({
         type: "deckCard",
         item: { id },
@@ -20,13 +19,13 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count}) => {
 
     const [showCard, setShowCard] = useState(false);
 
-  const handleMouseEnter = () => {
-    setShowCard(true);
-  };
+    const handleMouseEnter = () => {
+        setShowCard(true);
+    };
 
-  const handleMouseLeave = () => {
-    setShowCard(false);
-  };
+    const handleMouseLeave = () => {
+        setShowCard(false);
+    };
 
     return (
         <div
@@ -37,10 +36,14 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count}) => {
             onMouseLeave={handleMouseLeave}
         >
             <div className="bg-gray-200 rounded flex w-full">
-                
-                <p className="text-gray-700 m-2 font-black p-1">{name}</p>
-                <span className="text-gray-700 p-1 m-2">{count > 1 ? count : ""}</span>
-                
+                <div className="flex justify-between items-center w-full">
+                    <p className="text-gray-700 m-2 font-black p-1 flex-grow truncate">
+                        {name}
+                    </p>
+                    <span className="text-gray-700 p-1 m-2 mr-8 flex-shrink-0">
+                        {count > 1 ? count : ""}
+                    </span>
+                </div>
             </div>
             {showCard && <img src={imageUris} alt={name} />}
         </div>
