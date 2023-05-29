@@ -5,6 +5,8 @@ import Loader from "./components/Loader";
 import { fetchCards, getCardsByName } from "./services/cardService";
 import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
+import ColorFilter from "./components/ColorFilter";
+
 
 export interface CardType {
     id: string;
@@ -114,6 +116,7 @@ function App() {
             <section className="max-w-7xl mx-auto flex">
                 <div className="w-4/5">
                     <div className="mt-5">
+                      <ColorFilter/>
                         <Searchfield
                             labelName="Search cards"
                             type="text"
@@ -125,7 +128,9 @@ function App() {
                     </div>
 
                     {loading ? (
-                        <Loader />
+                        <div className="flex items-center justify-center h-screen">
+                            <Loader />
+                        </div>
                     ) : (
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                             {searchedResults.length
