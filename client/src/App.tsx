@@ -128,7 +128,7 @@ function App() {
                 <div
                     ref={deckDrop}
                     style={{ backgroundColor: isOver ? "lightblue" : "white" }}
-                    className="w-1/3 border-2 border-gray-300 h-screen ml-4 m-7"
+                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 relative"
                 >
                     {Array.from(new Set(deck.map((card) => card.id))).map(
                         (id) => {
@@ -146,6 +146,16 @@ function App() {
                             ) : null;
                         }
                     )}
+
+                    <div className="absolute bottom-4 left-10 text-2xl">
+                        <span>{`${deck.length}/60`}</span>
+                    </div>
+
+                    <div className="absolute bottom-2 right-2">
+                        <button className="text-2xl bg-gray-700 text-white py-2 px-4 rounded">
+                            Done
+                        </button>
+                    </div>
                 </div>
             </section>
         </div>

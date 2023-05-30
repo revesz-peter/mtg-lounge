@@ -31,16 +31,16 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
         <div
             ref={drag}
             style={{ opacity: isDragging ? 0.5 : 1 }}
-            className="flex flex-col items-center p-2"
+            className="flex flex-col items-center p-0.5"
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
             <div className="bg-gray-200 rounded flex w-full">
                 <div className="flex justify-between items-center w-full">
-                    <p className="text-gray-700 m-2 font-black p-1 flex-grow truncate">
+                    <p className="text-gray-700 m-2 font-black flex-grow truncate">
                         {name}
                     </p>
-                    <span className="text-gray-700 p-1 m-2 mr-8 flex-shrink-0">
+                    <span className="text-gray-700 m-2 mr-8 flex-shrink-0">
                         {count > 1 ? count : ""}
                     </span>
                 </div>
