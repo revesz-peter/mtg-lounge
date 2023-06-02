@@ -71,7 +71,7 @@ public class ScryfallService {
 
     @PostConstruct
     public void fetchAndSaveSetCards() {
-        String url = "https://api.scryfall.com/cards/search?q=set:dmu";
+        String url = "https://api.scryfall.com/cards/search?q=set:dmu&order=cmc";
 
         try {
             Map<String, Object> pageData = restTemplate.getForObject(url, Map.class);
