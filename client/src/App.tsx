@@ -128,31 +128,43 @@ function App() {
                 <div
                     ref={deckDrop}
                     style={{ backgroundColor: isOver ? "lightblue" : "white" }}
-                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 relative"
+                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded"
                 >
-                    {Array.from(new Set(deck.map((card) => card.id))).map(
-                        (id) => {
-                            const card = allCards.find(
-                                (card) => card.id === id
-                            );
-                            return card ? (
-                                <DeckCard
-                                    key={card.id}
-                                    imageUris={card.imageUris}
-                                    id={card.id}
-                                    name={card.name}
-                                    count={deckCounts[id]}
-                                />
-                            ) : null;
-                        }
-                    )}
-
-                    <div className="absolute bottom-4 left-10 text-2xl">
-                        <span>{`${deck.length}/60`}</span>
+                    <div className="mt-2 mb-1 flex justify-center items-center px-4">
+                        <input
+                            type="text"
+                            placeholder="New Deck"
+                            className="text-xl font-bold w-full py-1 px-2 rounded"
+                            onBlur={(e) => (e.target.style.fontWeight = "bold")}
+                            onFocus={(e) =>
+                                (e.target.style.fontWeight = "normal")
+                            }
+                        />
+                    </div>
+                    <div className="overflow-y-scroll flex-grow">
+                        {Array.from(new Set(deck.map((card) => card.id))).map(
+                            (id) => {
+                                const card = allCards.find(
+                                    (card) => card.id === id
+                                );
+                                return card ? (
+                                    <DeckCard
+                                        key={card.id}
+                                        imageUris={card.imageUris}
+                                        id={card.id}
+                                        name={card.name}
+                                        count={deckCounts[id]}
+                                    />
+                                ) : null;
+                            }
+                        )}
                     </div>
 
-                    <div className="absolute bottom-2 right-2">
-                        <button className="text-2xl bg-gray-700 text-white py-2 px-4 rounded">
+                    <div className="mb-2 mt-1 flex justify-between items-center px-4">
+                        <div className="text-xl">
+                            <span>{`${deck.length}/60`}</span>
+                        </div>
+                        <button className="text-xl bg-gray-700 text-white py-1 px-2 rounded">
                             Done
                         </button>
                     </div>
