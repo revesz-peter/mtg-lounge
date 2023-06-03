@@ -19,6 +19,7 @@ function App() {
     const [searchText, setSearchText] = useState<string>("");
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
+    const [page, setPage] = useState(0);
 
     const {
         deck,
@@ -34,7 +35,7 @@ function App() {
         const loadCards = async () => {
             setLoading(true);
             try {
-                const result = await fetchCards();
+                const result = await fetchCards(page);
                 setAllCards(result);
             } catch (error) {
                 alert(error);
@@ -43,7 +44,7 @@ function App() {
             }
         };
         loadCards();
-    }, []);
+    }, [page]);
 
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -124,6 +125,21 @@ function App() {
                                 : renderCards(allCards)}
                         </div>
                     )}
+                    <div className="flex justify-center">
+                        <button
+                            className="text-2xl px-4 py-2 mr-2 rounded bg-gray-200"
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 0}
+                        >
+                            ←
+                        </button>
+                        <button
+                            className="text-2xl px-4 py-2 rounded bg-gray-200"
+                            onClick={() => setPage(page + 1)}
+                        >
+                            →
+                        </button>
+                    </div>
                 </div>
                 <div
                     ref={deckDrop}

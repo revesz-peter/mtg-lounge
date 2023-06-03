@@ -3,6 +3,9 @@ package com.codecool.server.service;
 import com.codecool.server.dto.CardDTO;
 import com.codecool.server.model.Card;
 import com.codecool.server.repository.CardRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +18,10 @@ public class CardService {
     private CardRepository cardRepository;
 
     @Transactional(readOnly = true)
-    public List<CardDTO> getAllCards() {
-        return cardRepository.findAll()
-                .stream()
+    public List<CardDTO> getAllCards(int page) {
+        Pageable pageable = PageRequest.of(page, 8); // Fixed page size of 8
+        Page<Card> cards = cardRepository.findAll(pageable);
+        return cards.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }

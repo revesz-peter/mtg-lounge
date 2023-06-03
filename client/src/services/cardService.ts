@@ -11,9 +11,9 @@ export const getCardsByName = async (name: string) => {
     }
 };
 
-export const fetchCards = async () => {
+export const fetchCards = async (page = 0) => {
     try {
-        const response = await axios.get("http://localhost:8080/api/cards");
+        const response = await axios.get(`http://localhost:8080/api/cards?page=${page}`);
         if (response.status === 200) {
             return response.data;
         } else {
@@ -24,3 +24,4 @@ export const fetchCards = async () => {
         throw error;
     }
 };
+

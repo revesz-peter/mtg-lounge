@@ -74,25 +74,38 @@ public class ScryfallService {
         String url = "https://api.scryfall.com/cards/search?q=set:dmu&order=cmc";
 
         try {
-            Map<String, Object> pageData = restTemplate.getForObject(url, Map.class);
-            List<Map<String, Object>> cardsData = (List<Map<String, Object>>) pageData.get("data");
-            if (cardsData != null) {
-                for (Map<String, Object> cardData : cardsData) {
-                    Card card = new Card();
-                    card.setId((String) cardData.get("id"));
-                    card.setName((String) cardData.get("name"));
-                    card.setManaCost((String) cardData.get("mana_cost"));
-                    card.setOracleText((String) cardData.get("oracle_text"));
-                    card.setSet((String) cardData.get("set"));
-                    Map<String, String> imageUris = (Map<String, String>) cardData.get("image_uris");
-                    if (imageUris != null) {
-                        card.setImageUris(imageUris.get("normal")); // Get the 'normal' image URI
-                    }
-                    cardRepository.save(card);
+            List<Map<String, Object>> cardsData = new ArrayList<>();
+            int page = 1;
+            int pageSize = 175; // Total number of cards in the set
+
+            // Fetch all pages of cards
+            while (cardsData.size() < pageSize) {
+                String pageUrl = url + "&page=" + page;
+                Map<String, Object> pageData = restTemplate.getForObject(pageUrl, Map.class);
+                List<Map<String, Object>> pageCardsData = (List<Map<String, Object>>) pageData.get("data");
+                if (pageCardsData != null) {
+                    cardsData.addAll(pageCardsData);
                 }
-            }} catch (HttpClientErrorException e) {
+                page++;
+            }
+
+            // Save cards to the database
+            for (Map<String, Object> cardData : cardsData) {
+                Card card = new Card();
+                card.setId((String) cardData.get("id"));
+                card.setName((String) cardData.get("name"));
+                card.setManaCost((String) cardData.get("mana_cost"));
+                card.setOracleText((String) cardData.get("oracle_text"));
+                card.setSet((String) cardData.get("set"));
+                Map<String, String> imageUris = (Map<String, String>) cardData.get("image_uris");
+                if (imageUris != null) {
+                    card.setImageUris(imageUris.get("normal")); // Get the 'normal' image URI
+                }
+                cardRepository.save(card);
+            }
+        } catch (HttpClientErrorException e) {
             System.out.println("Error fetching cards: " + e.getMessage());
         }
-        }
+    }
 }
 
