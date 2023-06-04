@@ -19,6 +19,8 @@ function App() {
     const [searchText, setSearchText] = useState<string>("");
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
+    const [page, setPage] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
     const {
         deck,
@@ -34,8 +36,9 @@ function App() {
         const loadCards = async () => {
             setLoading(true);
             try {
-                const result = await fetchCards();
+                const result = await fetchCards(page);
                 setAllCards(result);
+                setHasNextPage(result.length > 0);
             } catch (error) {
                 alert(error);
             } finally {
@@ -43,7 +46,7 @@ function App() {
             }
         };
         loadCards();
-    }, []);
+    }, [page]);
 
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -119,11 +122,44 @@ function App() {
                         </div>
                     ) : (
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                            {searchedResults.length
-                                ? renderCards(searchedResults)
-                                : renderCards(allCards)}
+                            {searchText.length > 0 &&
+                            searchedResults.length === 0 ? (
+                                <div className="text-xl p-4 flex h-screen text-gray-500">
+                                    No search results.
+                                </div>
+                            ) : (
+                                renderCards(
+                                    searchedResults.length > 0
+                                        ? searchedResults
+                                        : allCards
+                                )
+                            )}
                         </div>
                     )}
+                    <div className="flex justify-center">
+                        <button
+                            className={`text-3xl px-4 py-2 mr-2 rounded ${
+                                page === 0
+                                    ? "bg-gray-200 opacity-50"
+                                    : "bg-gray-200"
+                            }`}
+                            onClick={() => setPage(page - 1)}
+                            disabled={page === 0}
+                        >
+                            ←
+                        </button>
+                        <button
+                            className={`text-3xl px-4 py-2 rounded ${
+                                !hasNextPage
+                                    ? "bg-gray-200 opacity-50"
+                                    : "bg-gray-200"
+                            }`}
+                            onClick={() => setPage(page + 1)}
+                            disabled={!hasNextPage}
+                        >
+                            →
+                        </button>
+                    </div>
                 </div>
                 <div
                     ref={deckDrop}
@@ -134,7 +170,7 @@ function App() {
                         <input
                             type="text"
                             placeholder="New Deck"
-                            className="text-xl font-bold w-full py-1 px-2 rounded"
+                            className="text-3xl font-bold w-full py-1 px-2 rounded"
                             onBlur={(e) => (e.target.style.fontWeight = "bold")}
                             onFocus={(e) =>
                                 (e.target.style.fontWeight = "normal")
@@ -160,11 +196,11 @@ function App() {
                         )}
                     </div>
 
-                    <div className="mb-2 mt-1 flex justify-between items-center px-4">
-                        <div className="text-xl">
+                    <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
+                        <div className="text-2xl">
                             <span>{`${deck.length}/60`}</span>
                         </div>
-                        <button className="text-xl bg-gray-700 text-white py-1 px-2 rounded">
+                        <button className="text-2xl bg-gray-700 text-white py-1 px-4 rounded">
                             Done
                         </button>
                     </div>
