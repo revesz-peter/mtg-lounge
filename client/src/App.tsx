@@ -122,9 +122,18 @@ function App() {
                         </div>
                     ) : (
                         <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                            {searchedResults.length
-                                ? renderCards(searchedResults)
-                                : renderCards(allCards)}
+                            {searchText.length > 0 &&
+                            searchedResults.length === 0 ? (
+                                <div className="text-xl p-4 flex h-screen text-gray-500">
+                                    No search results.
+                                </div>
+                            ) : (
+                                renderCards(
+                                    searchedResults.length > 0
+                                        ? searchedResults
+                                        : allCards
+                                )
+                            )}
                         </div>
                     )}
                     <div className="flex justify-center">
