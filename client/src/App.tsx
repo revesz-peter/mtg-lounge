@@ -20,6 +20,7 @@ function App() {
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
     const [page, setPage] = useState(0);
+    const [hasNextPage, setHasNextPage] = useState<boolean>(true);
 
     const {
         deck,
@@ -37,6 +38,7 @@ function App() {
             try {
                 const result = await fetchCards(page);
                 setAllCards(result);
+                setHasNextPage(result.length > 0);
             } catch (error) {
                 alert(error);
             } finally {
@@ -127,15 +129,24 @@ function App() {
                     )}
                     <div className="flex justify-center">
                         <button
-                            className="text-2xl px-4 py-2 mr-2 rounded bg-gray-200"
+                            className={`text-3xl px-4 py-2 mr-2 rounded ${
+                                page === 0
+                                    ? "bg-gray-200 opacity-50"
+                                    : "bg-gray-200"
+                            }`}
                             onClick={() => setPage(page - 1)}
                             disabled={page === 0}
                         >
                             ←
                         </button>
                         <button
-                            className="text-2xl px-4 py-2 rounded bg-gray-200"
+                            className={`text-3xl px-4 py-2 rounded ${
+                                !hasNextPage
+                                    ? "bg-gray-200 opacity-50"
+                                    : "bg-gray-200"
+                            }`}
                             onClick={() => setPage(page + 1)}
+                            disabled={!hasNextPage}
                         >
                             →
                         </button>
@@ -150,7 +161,7 @@ function App() {
                         <input
                             type="text"
                             placeholder="New Deck"
-                            className="text-xl font-bold w-full py-1 px-2 rounded"
+                            className="text-3xl font-bold w-full py-1 px-2 rounded"
                             onBlur={(e) => (e.target.style.fontWeight = "bold")}
                             onFocus={(e) =>
                                 (e.target.style.fontWeight = "normal")
@@ -176,11 +187,11 @@ function App() {
                         )}
                     </div>
 
-                    <div className="mb-2 mt-1 flex justify-between items-center px-4">
-                        <div className="text-xl">
+                    <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
+                        <div className="text-2xl">
                             <span>{`${deck.length}/60`}</span>
                         </div>
-                        <button className="text-xl bg-gray-700 text-white py-1 px-2 rounded">
+                        <button className="text-2xl bg-gray-700 text-white py-1 px-4 rounded">
                             Done
                         </button>
                     </div>
