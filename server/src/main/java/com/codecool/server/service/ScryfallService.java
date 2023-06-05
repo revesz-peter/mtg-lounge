@@ -76,7 +76,7 @@ public class ScryfallService {
         try {
             List<Map<String, Object>> cardsData = new ArrayList<>();
             int page = 1;
-            int pageSize = 175; // Total number of cards in the set
+            int pageSize = 271; // Total number of cards in the set
 
             // Fetch all pages of cards
             while (cardsData.size() < pageSize) {
@@ -107,5 +107,6 @@ public class ScryfallService {
             System.out.println("Error fetching cards: " + e.getMessage());
         }
     }
+    
 }
 
