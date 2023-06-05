@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useDrop } from "react-dnd";
 import { CardType } from "../App"
 
-export function useDeckManager(allCards: CardType[]) {
+export function useDeckManager(allCards: CardType[], searchedResults: CardType[]){
     const [deck, setDeck] = useState<CardType[]>([]);
     const [deckCounts, setDeckCounts] = useState<{ [id: string]: number }>({});
 
@@ -11,7 +11,8 @@ export function useDeckManager(allCards: CardType[]) {
         () => ({
             accept: "card",
             drop: (item: { type: string; id: string }) => {
-                const card = allCards.find((card) => card.id === item.id);
+                const card = allCards.find((card) => card.id === item.id) || searchedResults.find((card) => card.id === item.id);
+
                 if (card) {
                     setDeck((prevDeck) => [...prevDeck, card]);
                     setDeckCounts((prevCounts) => ({

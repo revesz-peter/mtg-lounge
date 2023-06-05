@@ -24,7 +24,7 @@ const ColorFilter: React.FC = () => {
                     key={color}
                     src={colorImages[color]}
                     alt={color}
-                    className={`cursor-pointer m-2 sm:w-12 sm:h-12 w-8 h-8 ${selectedColor === color ? 'opacity-100' : 'opacity-50'}`}
+                    className={`cursor-pointer m-2 sm:w-10 sm:h-10 w-8 h-8 ${selectedColor === color ? 'opacity-100' : 'opacity-50'}`}
                     onClick={() => handleColorClick(color)}
                 />
             ))}
