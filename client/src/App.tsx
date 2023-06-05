@@ -30,7 +30,7 @@ function App() {
         deckDrop,
         outsideDrop,
         isOver,
-    } = useDeckManager(allCards);
+    } = useDeckManager(allCards, searchedResults);
 
     useEffect(() => {
         const loadCards = async () => {
@@ -170,7 +170,7 @@ function App() {
                         <input
                             type="text"
                             placeholder="New Deck"
-                            className="text-3xl font-bold w-full py-1 px-2 rounded"
+                            className="text-3xl outline-none font-bold w-full py-1 px-2 rounded"
                             onBlur={(e) => (e.target.style.fontWeight = "bold")}
                             onFocus={(e) =>
                                 (e.target.style.fontWeight = "normal")
@@ -180,7 +180,7 @@ function App() {
                     <div className="overflow-y-scroll flex-grow">
                         {Array.from(new Set(deck.map((card) => card.id))).map(
                             (id) => {
-                                const card = allCards.find(
+                                const card = deck.find(
                                     (card) => card.id === id
                                 );
                                 return card ? (
