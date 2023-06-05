@@ -27,7 +27,7 @@ export function useDeckManager(allCards: CardType[], searchedResults: CardType[]
                 isOver: !!monitor.isOver(),
             }),
         }),
-        [allCards, deck]
+        [allCards, deck, searchedResults]
     );
 
     // New drop zone (for removing from the deck)
