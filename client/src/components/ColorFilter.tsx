@@ -20,6 +20,7 @@ const ColorFilter: React.FC<ColorFilterProps> = ({ setSelectedColor }) => {
     const handleColorClick = async (color: string) => {
         setSelectedColorState(prevColor => prevColor === color ? "" : color);
         setSelectedColor(color);
+        
     };
 
     return (

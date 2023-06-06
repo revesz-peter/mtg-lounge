@@ -57,6 +57,7 @@ function App() {
 
     useEffect(() => {
         setPage(0);
+        setSearchText("");
     }, [selectedColor]);
 
     const handleSearchChange = async (
@@ -116,7 +117,7 @@ function App() {
             <section className="max-w-7xl mx-auto flex">
                 <div className="w-4/5">
                     <div className="mt-5">
-                        <ColorFilter setSelectedColor={setSelectedColor} />
+                        <ColorFilter setSelectedColor={setSelectedColor}/>
                         <Searchfield
                             labelName="Search cards"
                             type="text"
