@@ -107,6 +107,6 @@ public class ScryfallService {
             System.out.println("Error fetching cards: " + e.getMessage());
         }
     }
-    
+
 }
 

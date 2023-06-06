@@ -25,6 +25,19 @@ public class CardService {
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
+
+    @Transactional(readOnly = true)
+    public List<CardDTO> getCardsByColor(String color, int page) {
+        int pageSize = 8; // Fixed page size of 8
+        List<Card> allCards = cardRepository.findByManaCostContaining(color);
+        int start = Math.min(page * pageSize, allCards.size());
+        int end = Math.min(start + pageSize, allCards.size());
+        List<Card> pageCards = allCards.subList(start, end);
+        return pageCards.stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
     @Transactional(readOnly = true)
     public List<CardDTO> getCardsByManaCost(String manaCost) {
         List<Card> cards = cardRepository.findByManaCost(manaCost);
@@ -42,9 +55,13 @@ public class CardService {
     }
 
     @Transactional(readOnly = true)
-    public List<CardDTO> getCardsByNameContaining(String name) {
-        List<Card> cards = cardRepository.findByNameContainingIgnoreCase(name);
-        return cards.stream()
+    public List<CardDTO> getCardsByNameContaining(String name, int page) {
+        int pageSize = 8; // Fixed page size of 8
+        List<Card> allCards = cardRepository.findByNameContainingIgnoreCase(name);
+        int start = Math.min(page * pageSize, allCards.size());
+        int end = Math.min(start + pageSize, allCards.size());
+        List<Card> pageCards = allCards.subList(start, end);
+        return pageCards.stream()
                 .map(this::convertToDTO)
                 .collect(Collectors.toList());
     }
@@ -56,8 +73,7 @@ public class CardService {
                 card.getManaCost(),
                 card.getOracleText(),
                 card.getSet(),
-                card.getImageUris()
-        );
+                card.getImageUris());
     }
 
 }

@@ -15,15 +15,23 @@ public class CardController {
 
     @Autowired
     private CardService cardService;
+
     @GetMapping
     public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false, defaultValue = "0") int page) {
         List<CardDTO> cardDTOs = cardService.getAllCards(page);
         return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
     }
-
+   
     @GetMapping("/search/{name}")
-    public ResponseEntity<List<CardDTO>> getCardsByName(@PathVariable String name) {
-        List<CardDTO> cardDTOs = cardService.getCardsByNameContaining(name);
+    public ResponseEntity<List<CardDTO>> getCardsByName(@PathVariable String name, @RequestParam(required = false, defaultValue = "0") int page) {
+        List<CardDTO> cardDTOs = cardService.getCardsByNameContaining(name, page);
         return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
     }
+
+    @GetMapping("/color/{color}")
+    public ResponseEntity<List<CardDTO>> getCardsByColor(@PathVariable String color, @RequestParam(required = false, defaultValue = "0") int page) {
+        List<CardDTO> cardDTOs = cardService.getCardsByColor(color, page);
+        return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
+    }
+
 }
