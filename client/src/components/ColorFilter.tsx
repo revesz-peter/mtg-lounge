@@ -10,11 +10,16 @@ const colorImages: Record<string, string> = {
     G: '/colors/G.png',
 }; // Map color symbols to image paths
 
-const ColorFilter: React.FC = () => {
-    const [selectedColor, setSelectedColor] = useState<string | null>(null);
+type ColorFilterProps = {
+    setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
+};
 
-    const handleColorClick = (color: string) => {
-        setSelectedColor(prevColor => prevColor === color ? null : color);
+const ColorFilter: React.FC<ColorFilterProps> = ({ setSelectedColor }) => {
+    const [selectedColorState, setSelectedColorState] = useState<string>("");
+
+    const handleColorClick = async (color: string) => {
+        setSelectedColorState(prevColor => prevColor === color ? "" : color);
+        setSelectedColor(color);
     };
 
     return (
@@ -24,7 +29,7 @@ const ColorFilter: React.FC = () => {
                     key={color}
                     src={colorImages[color]}
                     alt={color}
-                    className={`cursor-pointer m-2 sm:w-10 sm:h-10 w-8 h-8 ${selectedColor === color ? 'opacity-100' : 'opacity-50'}`}
+                    className={`cursor-pointer m-2 sm:w-10 sm:h-10 w-8 h-8 ${selectedColorState === color ? 'opacity-100' : 'opacity-50'}`}
                     onClick={() => handleColorClick(color)}
                 />
             ))}

@@ -15,6 +15,7 @@ public class CardController {
 
     @Autowired
     private CardService cardService;
+
     @GetMapping
     public ResponseEntity<List<CardDTO>> getAllCards(@RequestParam(required = false, defaultValue = "0") int page) {
         List<CardDTO> cardDTOs = cardService.getAllCards(page);
@@ -26,4 +27,11 @@ public class CardController {
         List<CardDTO> cardDTOs = cardService.getCardsByNameContaining(name);
         return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
     }
+    
+    @GetMapping("/color/{color}")
+    public ResponseEntity<List<CardDTO>> getCardsByColor(@PathVariable String color, @RequestParam(required = false, defaultValue = "0") int page) {
+        List<CardDTO> cardDTOs = cardService.getCardsByColor(color, page);
+        return new ResponseEntity<>(cardDTOs, HttpStatus.OK);
+    }
+
 }

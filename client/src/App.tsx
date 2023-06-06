@@ -6,6 +6,7 @@ import { fetchCards, getCardsByName } from "./services/cardService";
 import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
 import ColorFilter from "./components/ColorFilter";
+import { getCardsByColor } from "./services/cardService";
 
 export interface CardType {
     id: string;
@@ -21,6 +22,7 @@ function App() {
     const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
     const [page, setPage] = useState(0);
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
+    const [selectedColor, setSelectedColor] = useState<string>("");
 
     const {
         deck,
@@ -36,7 +38,12 @@ function App() {
         const loadCards = async () => {
             setLoading(true);
             try {
-                const result = await fetchCards(page);
+                let result: CardType[] = [];
+                if (selectedColor !== "") {
+                    result = await getCardsByColor(selectedColor, page);
+                } else {
+                    result = await fetchCards(page);
+                }
                 setAllCards(result);
                 setHasNextPage(result.length > 0);
             } catch (error) {
@@ -46,7 +53,11 @@ function App() {
             }
         };
         loadCards();
-    }, [page]);
+    }, [page, selectedColor]);
+
+    useEffect(() => {
+        setPage(0);
+    }, [selectedColor]);
 
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -105,7 +116,7 @@ function App() {
             <section className="max-w-7xl mx-auto flex">
                 <div className="w-4/5">
                     <div className="mt-5">
-                        <ColorFilter />
+                        <ColorFilter setSelectedColor={setSelectedColor} />
                         <Searchfield
                             labelName="Search cards"
                             type="text"

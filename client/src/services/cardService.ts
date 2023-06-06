@@ -1,5 +1,16 @@
 import axios from "axios";
 
+export const getCardsByColor = async (color: string, page = 0) => {
+    try {
+        const response = await axios.get(
+            `http://localhost:8080/api/cards/color/${color}?page=${page}`
+        );
+        return response.data;
+    } catch (error) {
+        console.error(`Error fetching cards: ${error}`);
+    }
+};
+
 export const getCardsByName = async (name: string) => {
     try {
         const response = await axios.get(
