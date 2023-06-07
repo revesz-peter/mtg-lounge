@@ -24,7 +24,6 @@ function App() {
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
 
-
     const {
         deck,
         setDeck,
