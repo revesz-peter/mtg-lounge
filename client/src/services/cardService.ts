@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getCardsByColor = async (color: string, page = 0) => {
+export const getCardsByColor = async (color: string, page: number) => {
     try {
         const response = await axios.get(
             `http://localhost:8080/api/cards/color/${color}?page=${page}`
@@ -11,7 +11,7 @@ export const getCardsByColor = async (color: string, page = 0) => {
     }
 };
 
-export const getCardsByName = async (name: string, page = 0) => {
+export const getCardsByName = async (name: string, page: number) => {
     try {
         const response = await axios.get(
             `http://localhost:8080/api/cards/search/${name}?page=${page}`
@@ -22,9 +22,11 @@ export const getCardsByName = async (name: string, page = 0) => {
     }
 };
 
-export const fetchCards = async (page = 0) => {
+export const fetchCards = async (page: number) => {
     try {
-        const response = await axios.get(`http://localhost:8080/api/cards?page=${page}`);
+        const response = await axios.get(
+            `http://localhost:8080/api/cards?page=${page}`
+        );
         if (response.status === 200) {
             return response.data;
         } else {
@@ -35,4 +37,3 @@ export const fetchCards = async (page = 0) => {
         throw error;
     }
 };
-
