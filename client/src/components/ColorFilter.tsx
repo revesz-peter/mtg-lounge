@@ -12,30 +12,32 @@ const colorImages: Record<string, string> = {
 
 type ColorFilterProps = {
     setSelectedColor: React.Dispatch<React.SetStateAction<string>>;
-};
-
-const ColorFilter: React.FC<ColorFilterProps> = ({ setSelectedColor }) => {
-    const [selectedColorState, setSelectedColorState] = useState<string>("");
-
-    const handleColorClick = async (color: string) => {
-        setSelectedColorState(prevColor => prevColor === color ? "" : color);
-        setSelectedColor(color);
-        
+    selectedColor: string;
+  };
+  
+  const ColorFilter: React.FC<ColorFilterProps> = ({
+    setSelectedColor,
+    selectedColor,
+  }) => {
+    const handleColorClick = (color: string) => {
+      setSelectedColor((prevColor) => (prevColor === color ? '' : color));
     };
-
+  
     return (
-        <div className="flex">
-            {colors.map((color) => (
-                <img
-                    key={color}
-                    src={colorImages[color]}
-                    alt={color}
-                    className={`cursor-pointer m-2 sm:w-10 sm:h-10 w-8 h-8 ${selectedColorState === color ? 'opacity-100' : 'opacity-50'}`}
-                    onClick={() => handleColorClick(color)}
-                />
-            ))}
-        </div>
+      <div className="flex">
+        {colors.map((color) => (
+          <img
+            key={color}
+            src={colorImages[color]}
+            alt={color}
+            className={`cursor-pointer m-2 sm:w-10 sm:h-10 w-8 h-8 ${
+                selectedColor === color ? 'opacity-100' : 'opacity-50'
+              }`}
+            onClick={() => handleColorClick(color)}
+          />
+        ))}
+      </div>
     );
-};
+  };
 
 export default ColorFilter;

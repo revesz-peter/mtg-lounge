@@ -63,11 +63,19 @@ function App() {
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
-        clearTimeout(searchTimeout);
+        // remove timeout for experiment purposes
+        // clearTimeout(searchTimeout);
         const searchTextValue = e.target.value;
         setSearchText(searchTextValue);
 
-        setSearchTimeout(
+        if (searchTextValue) {
+            const searchResult = await getCardsByName(searchTextValue);
+            setSearchedResults(searchResult);
+        } else {
+            setSearchedResults([]);
+        }
+
+        /* setSearchTimeout(
             setTimeout(async () => {
                 if (searchTextValue) {
                     const searchResult = await getCardsByName(searchTextValue);
@@ -76,7 +84,7 @@ function App() {
                     setSearchedResults([]);
                 }
             }, 500)
-        );
+        ); */
     };
 
     const addToDeck = (card: CardType) => {
@@ -117,7 +125,10 @@ function App() {
             <section className="max-w-7xl mx-auto flex">
                 <div className="w-4/5">
                     <div className="mt-5">
-                        <ColorFilter setSelectedColor={setSelectedColor}/>
+                        <ColorFilter
+                            setSelectedColor={setSelectedColor}
+                            selectedColor={selectedColor}
+                        />
                         <Searchfield
                             labelName="Search cards"
                             type="text"
