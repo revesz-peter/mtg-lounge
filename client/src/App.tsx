@@ -24,6 +24,7 @@ function App() {
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
 
+
     const {
         deck,
         setDeck,
@@ -69,11 +70,11 @@ function App() {
         setSearchText(searchTextValue);
 
         if (searchTextValue) {
-          const searchResult = await getCardsByName(searchTextValue);
-          setSearchedResults(searchResult);
-      } else {
-          setSearchedResults([]);
-      }
+            const searchResult = await getCardsByName(searchTextValue);
+            setSearchedResults(searchResult);
+        } else {
+            setSearchedResults([]);
+        }
 
         /* setSearchTimeout(
             setTimeout(async () => {
@@ -125,7 +126,10 @@ function App() {
             <section className="max-w-7xl mx-auto flex">
                 <div className="w-4/5">
                     <div className="mt-5">
-                        <ColorFilter setSelectedColor={setSelectedColor}/>
+                        <ColorFilter
+                            setSelectedColor={setSelectedColor}
+                            selectedColor={selectedColor}
+                        />
                         <Searchfield
                             labelName="Search cards"
                             type="text"
