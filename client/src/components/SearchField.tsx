@@ -15,6 +15,7 @@ const Searchfield: React.FC<SearchFieldProps> = ({
     placeholder,
     value,
     handleChange,
+    
 }) => {
     return (
         <div>
@@ -25,6 +26,7 @@ const Searchfield: React.FC<SearchFieldProps> = ({
                 name={name}
                 placeholder={placeholder}
                 value={value}
+                autoComplete="off"
                 onChange={handleChange}
                 required
                 className="bg-gray-50 border border-gray-300 text-gray-900 rounded block w-full p-3"
