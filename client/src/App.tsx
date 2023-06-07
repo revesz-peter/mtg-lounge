@@ -53,12 +53,11 @@ function App() {
             }
         };
         loadCards();
-    }, [page, selectedColor]);
+    }, [page, selectedColor, searchText]);
 
     useEffect(() => {
         setPage(0);
-        setSearchText("");
-    }, [selectedColor]);
+    }, [selectedColor, searchText]);
 
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
@@ -69,7 +68,7 @@ function App() {
         setSearchText(searchTextValue);
 
         if (searchTextValue) {
-            const searchResult = await getCardsByName(searchTextValue);
+            const searchResult = await getCardsByName(searchTextValue, page);
             setSearchedResults(searchResult);
         } else {
             setSearchedResults([]);
@@ -187,7 +186,7 @@ function App() {
                 <div
                     ref={deckDrop}
                     style={{ backgroundColor: isOver ? "lightblue" : "white" }}
-                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded"
+                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded-lg"
                 >
                     <div className="mt-2 mb-1 flex justify-center items-center px-4">
                         <input
