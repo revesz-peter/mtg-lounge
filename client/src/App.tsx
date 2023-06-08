@@ -219,9 +219,35 @@ function App() {
                     </div>
 
                     <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
-                        <div className="text-2xl">
-                            <span>{`${deck.length}/60`}</span>
+                        <div
+                            className="text-2xl flex justify-between"
+                            style={{ width: "70px" }}
+                        >
+                            <div className="text-right w-1/2">
+                                {deck.length}
+                            </div>
+                            <div>/</div>
+                            <div className="text-left w-1/2">60</div>
                         </div>
+                        <button
+                            className="text-2xl bg-gray-200 text-gray-700 ml-6 py-1 px-4 rounded"
+                            onClick={() => {
+                                let deckText = "";
+                                Array.from(
+                                    new Set(deck.map((card) => card.id))
+                                ).forEach((id) => {
+                                    const card = deck.find(
+                                        (card) => card.id === id
+                                    );
+                                    if (card) {
+                                        deckText += `${deckCounts[id]} ${card.name}\n`;
+                                    }
+                                });
+                                navigator.clipboard.writeText(deckText);
+                            }}
+                        >
+                            Copy
+                        </button>
                         <button className="text-2xl bg-gray-700 text-white py-1 px-4 rounded">
                             Done
                         </button>
