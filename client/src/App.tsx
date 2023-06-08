@@ -23,6 +23,7 @@ function App() {
     const [page, setPage] = useState(0);
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
+    const [isCopied, setIsCopied] = useState<boolean>(false);
 
     const {
         deck,
@@ -220,7 +221,7 @@ function App() {
 
                     <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
                         <div
-                            className="text-2xl flex justify-between"
+                            className="text-xl flex justify-between"
                             style={{ width: "70px" }}
                         >
                             <div className="text-right w-1/2">
@@ -230,8 +231,9 @@ function App() {
                             <div className="text-left w-1/2">60</div>
                         </div>
                         <button
-                            className="text-2xl bg-gray-200 text-gray-700 ml-6 py-1 px-4 rounded"
-                            onClick={() => {
+                            style={{ minWidth: "100px" }}
+                            className="bg-gray-200 text-gray-700 font-semibold ml-2 py-1 px-4 rounded"
+                            onClick={async () => {
                                 let deckText = "";
                                 Array.from(
                                     new Set(deck.map((card) => card.id))
@@ -243,12 +245,21 @@ function App() {
                                         deckText += `${deckCounts[id]} ${card.name}\n`;
                                     }
                                 });
-                                navigator.clipboard.writeText(deckText);
+                                try {
+                                    await navigator.clipboard.writeText(
+                                        deckText
+                                    );
+                                    setIsCopied(true);
+                                    setTimeout(() => setIsCopied(false), 3000);
+                                    setIsCopied(true);
+                                } catch (err) {
+                                    console.error("Failed to copy text: ", err);
+                                }
                             }}
                         >
-                            Copy
+                            {isCopied ? "Copied✓" : "Copy"}
                         </button>
-                        <button className="text-2xl bg-gray-700 text-white py-1 px-4 rounded">
+                        <button style={{ minWidth: "100px" }} className="bg-gray-700 text-white font-semibold py-1 px-4 rounded">
                             Done
                         </button>
                     </div>
