@@ -28,7 +28,7 @@ const Searchfield: React.FC<SearchFieldProps> = ({
                 autoComplete="off"
                 onChange={handleChange}
                 required
-                className="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg block w-full p-3"
+                className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3 outline-0"
             />
         </div>
     );
