@@ -23,6 +23,8 @@ function App() {
     const [page, setPage] = useState(0);
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
+    const [isCopied, setIsCopied] = useState<boolean>(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const {
         deck,
@@ -219,13 +221,83 @@ function App() {
                     </div>
 
                     <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
-                        <div className="text-2xl">
-                            <span>{`${deck.length}/60`}</span>
+                        <div
+                            className="text-xl flex justify-between"
+                            style={{ width: "70px" }}
+                        >
+                            <div className="text-right w-1/2">
+                                {deck.length}
+                            </div>
+                            <div>/</div>
+                            <div className="text-left w-1/2">60</div>
                         </div>
-                        <button className="text-2xl bg-gray-700 text-white py-1 px-4 rounded">
+                        <button
+                            style={{ minWidth: "100px" }}
+                            className="bg-gray-200 text-gray-700 font-semibold ml-2 py-1 px-4 rounded"
+                            onClick={async () => {
+                                let deckText = "";
+                                Array.from(
+                                    new Set(deck.map((card) => card.id))
+                                ).forEach((id) => {
+                                    const card = deck.find(
+                                        (card) => card.id === id
+                                    );
+                                    if (card) {
+                                        deckText += `${deckCounts[id]} ${card.name}\n`;
+                                    }
+                                });
+                                try {
+                                    await navigator.clipboard.writeText(
+                                        deckText
+                                    );
+                                    setIsCopied(true);
+                                    setTimeout(() => setIsCopied(false), 3000);
+                                    setIsCopied(true);
+                                } catch (err) {
+                                    console.error("Failed to copy text: ", err);
+                                }
+                            }}
+                        >
+                            {isCopied ? "Copied✓" : "Copy"}
+                        </button>
+                        <button
+                            style={{ minWidth: "100px" }}
+                            className="bg-gray-700 text-white font-semibold py-1 px-4 rounded"
+                            onClick={() => setIsDialogOpen(true)}
+                        >
                             Done
                         </button>
                     </div>
+                    {isDialogOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white rounded-lg shadow-2xl p-12 max-w-xl mx-auto border-2 border-gray-300">
+                                <h3 className="text-4xl font-semibold text-gray-400 mb-4">
+                                    Login required
+                                </h3>
+                                <p className="text-gray-600 mb-8">
+                                    You need to log in to save your deck.
+                                </p>
+                                <div className="flex justify-between items-center">
+                                    <button
+                                        style={{ minWidth: "100px" }}
+                                        className="text-xl bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded transition"
+                                        onClick={() => {
+                                            /* upcoming login function */
+                                        }}
+                                    >
+                                        Log in
+                                    </button>
+                                    <button
+                                        style={{ minWidth: "100px" }}
+                                        className="text-xl bg-gray-700 text-white px-4 py-2 rounded transition"
+                                        onClick={() => setIsDialogOpen(false)}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </section>
         </div>
