@@ -24,6 +24,7 @@ function App() {
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [isCopied, setIsCopied] = useState<boolean>(false);
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
 
     const {
         deck,
@@ -259,10 +260,44 @@ function App() {
                         >
                             {isCopied ? "Copied✓" : "Copy"}
                         </button>
-                        <button style={{ minWidth: "100px" }} className="bg-gray-700 text-white font-semibold py-1 px-4 rounded">
+                        <button
+                            style={{ minWidth: "100px" }}
+                            className="bg-gray-700 text-white font-semibold py-1 px-4 rounded"
+                            onClick={() => setIsDialogOpen(true)}
+                        >
                             Done
                         </button>
                     </div>
+                    {isDialogOpen && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div className="bg-white rounded-lg shadow-2xl p-12 max-w-xl mx-auto border-2 border-gray-300">
+                                <h3 className="text-4xl font-semibold text-gray-400 mb-4">
+                                    Login required
+                                </h3>
+                                <p className="text-gray-600 mb-8">
+                                    You need to log in to save your deck.
+                                </p>
+                                <div className="flex justify-between items-center">
+                                    <button
+                                        style={{ minWidth: "100px" }}
+                                        className="text-xl bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded transition"
+                                        onClick={() => {
+                                            /* upcoming login function */
+                                        }}
+                                    >
+                                        Log in
+                                    </button>
+                                    <button
+                                        style={{ minWidth: "100px" }}
+                                        className="text-xl bg-gray-700 text-white px-4 py-2 rounded transition"
+                                        onClick={() => setIsDialogOpen(false)}
+                                    >
+                                        Close
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
             </section>
         </div>

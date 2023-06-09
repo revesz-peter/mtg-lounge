@@ -14,6 +14,7 @@ import java.util.*;
 
 @Service
 public class ScryfallService {
+    public static final String URL = "https://api.scryfall.com/cards/search?q=set:dmu&order=cmc";
     @Autowired
     private CardRepository cardRepository;
     private static final RestTemplate restTemplate = new RestTemplate();
@@ -71,7 +72,6 @@ public class ScryfallService {
 
     @PostConstruct
     public void fetchAndSaveSetCards() {
-        String url = "https://api.scryfall.com/cards/search?q=set:dmu&order=cmc";
 
         try {
             List<Map<String, Object>> cardsData = new ArrayList<>();
@@ -80,7 +80,7 @@ public class ScryfallService {
 
             // Fetch all pages of cards
             while (cardsData.size() < pageSize) {
-                String pageUrl = url + "&page=" + page;
+                String pageUrl = URL + "&page=" + page;
                 Map<String, Object> pageData = restTemplate.getForObject(pageUrl, Map.class);
                 List<Map<String, Object>> pageCardsData = (List<Map<String, Object>>) pageData.get("data");
                 if (pageCardsData != null) {
