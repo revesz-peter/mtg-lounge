@@ -34,6 +34,16 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
         setShowCard(false);
     };
 
+    const handleTouchStart = (e: React.TouchEvent) => {
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        setCardPosition({ top: rect.top, left: rect.left - 350 });
+        setShowCard(true);
+    };
+
+    const handleTouchEnd = () => {
+        setShowCard(false);
+    };
+
     return (
         <div
             ref={drag}
@@ -42,6 +52,8 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
             onMouseDown={handleMouseDown}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
         >
             <div className="bg-gray-200 rounded flex w-full">
                 <div className="flex justify-between items-center w-full">
