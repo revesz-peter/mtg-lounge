@@ -28,7 +28,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="bg-white rounded-lg shadow-xl p-8 w-1/2 mx-auto border-gray-300 transform scale-90 hover:scale-100 transition-transform duration-300">
                 <div className="flex justify-center items-center border-b pb-4">
-                    <h3 className="text-3xl font-bold text-gray-700 mx-2">Login to</h3>
+                    <h3 className="text-3xl font-bold text-gray-700 mx-2">Log in to</h3>
                     <img src={lounge} className="h-10 sm:h-14 lg:h-20 xl:h-28 ml-2" />
                 </div>
                 <div className="pt-2 mb-6">
@@ -111,7 +111,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                             handleLogin(username, password);
                         }}
                     >
-                        Login
+                        Log in
                     </button>
                     <button
                         className="text-2xl bg-gray-400 hover:bg-gray-300 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
