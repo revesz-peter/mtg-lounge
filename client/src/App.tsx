@@ -279,7 +279,7 @@ function App() {
                         )}
                     </div>
 
-                    <div className="mb-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
+                    <div className="mb-2 p-1 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
                         <div
                             className="text-xl flex justify-between"
                             style={{ width: "70px" }}
@@ -292,7 +292,7 @@ function App() {
                         </div>
                         <button
                             style={{ minWidth: "100px" }}
-                            className="bg-gray-200 text-gray-700 font-semibold ml-2 py-1 px-4 rounded"
+                            className="bg-gray-200 text-gray-700 font-semibold ml-2 py-2 px-4 rounded"
                             onClick={async () => {
                                 let deckText = "";
                                 Array.from(
@@ -321,7 +321,7 @@ function App() {
                         </button>
                         <button
                             style={{ minWidth: "100px" }}
-                            className="bg-gray-700 text-white font-semibold py-1 px-4 rounded"
+                            className="bg-gray-700 text-white font-semibold py-2 px-4 rounded"
                             onClick={() => setIsDialogOpen(true)}
                         >
                             Done
