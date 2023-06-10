@@ -22,7 +22,19 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
 
     const handleMouseEnter = (e: React.MouseEvent) => {
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-        setCardPosition({ top: rect.top, left: rect.left - 350 });
+        let top = rect.top;
+        const left = rect.left - 350;
+        const windowHeight = window.innerHeight;
+        const cardHeight = 350; //same as the height you set in the style
+        const safetyMargin = 130; //subtracting safety margin to accommodate for unknown factors
+    
+        //If the bottom edge of the card would be lower than the window height,
+        //move the card up so that it fits into the window.
+        if (rect.top + cardHeight > windowHeight) {
+            top = windowHeight - cardHeight - safetyMargin;
+        }
+    
+        setCardPosition({ top: top, left: left });
         setShowCard(true);
     };
 
@@ -36,7 +48,17 @@ const DeckCard: React.FC<DeckCardProps> = ({ id, imageUris, name, count }) => {
 
     const handleTouchStart = (e: React.TouchEvent) => {
         const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-        setCardPosition({ top: rect.top, left: rect.left - 350 });
+        let top = rect.top;
+        const left = rect.left - 350;
+        const windowHeight = window.innerHeight;
+        const cardHeight = 350;
+        const safetyMargin = 130;
+    
+        if (rect.top + cardHeight > windowHeight) {
+            top = windowHeight - cardHeight - safetyMargin;
+        }
+    
+        setCardPosition({ top: top, left: left });
         setShowCard(true);
     };
 

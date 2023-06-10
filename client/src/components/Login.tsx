@@ -4,7 +4,6 @@ import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Button from "@mui/material/Button";
 import lounge from "../../public/mtg-lounge-logo.png";
 
 interface LoginProps {
