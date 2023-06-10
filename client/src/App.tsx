@@ -10,6 +10,7 @@ import { getCardsByColor } from "./services/cardService";
 import icon from "../public/PRM_M.png";
 import Login from "./components/Login";
 import LoginRequired from "./components/LoginRequired";
+import lounge from "../public/mtg-lounge-logo.png";
 
 export interface CardType {
     id: string;
@@ -163,6 +164,7 @@ function App() {
             >
                 <div className="w-4/5">
                     <div className="flex flex-wrap justify-between mt-5 mb-2">
+                        <img src={lounge} className="h-20 lg:block hidden" />
                         <ColorFilter
                             setSelectedColor={setSelectedColor}
                             selectedColor={selectedColor}
@@ -322,10 +324,9 @@ function App() {
                 </div>
             </section>
             {isPortrait && (
-                <div className="h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-black text-gray-500">
+                <div className="h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-white text-gray-500">
                     <div className="text-center">
-                        <img src={icon} />
-                        <h1 className="text-6xl font-bold mb-4">MTG Lounge</h1>
+                        <img src={lounge} />
 
                         <h2 className="text-3xl font-semibold mb-4">
                             Please Rotate Your Device

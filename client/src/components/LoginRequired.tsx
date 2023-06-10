@@ -26,7 +26,7 @@ const LoginRequired: React.FC<LoginRequiredProps> = ({
                 </p>
                 <div className="grid gap-4">
                     <button
-                        className="text-2xl bg-blue-500 hover:bg-blue-400 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
+                        className="text-2xl  bg-amber-500 hover:bg-amber-400 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
                         onClick={() => setIsLoginDialogOpen(true)}
                     >
                         Log in

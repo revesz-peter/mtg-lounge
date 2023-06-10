@@ -1,6 +1,7 @@
 // Login.tsx
 
 import React, { useState } from "react";
+import lounge from "../../public/mtg-lounge-logo.png";
 
 interface LoginProps {
     handleLogin: (username: string, password: string) => void;
@@ -14,10 +15,13 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="bg-white rounded-lg shadow-xl p-8 w-1/2 mx-auto border-gray-300 transform scale-90 hover:scale-100 transition-transform duration-300">
-                <h3 className="text-3xl font-bold text-gray-700 mb-4 text-center border-b pb-4">
-                    Login
-                </h3>
-                <div className="mb-6">
+                <div className="flex justify-center items-center border-b pb-4">
+                    <h3 className="text-3xl font-bold text-gray-700 mx-2">
+                        Login to
+                    </h3>
+                    <img src={lounge} className="h-28 ml-2" />
+                </div>
+                <div className="pt-2 mb-6">
                     <label
                         className="block text-gray-700 text-sm font-bold mb-2"
                         htmlFor="username"
@@ -25,7 +29,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                         Username
                     </label>
                     <input
-                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
+                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3 outline-amber-500"
                         id="username"
                         type="text"
                         placeholder="Username"
@@ -42,7 +46,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                         Password
                     </label>
                     <input
-                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
+                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3 outline-amber-500"
                         id="password"
                         type="password"
                         autoComplete="off"
@@ -53,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                 </div>
                 <div className="grid gap-4">
                     <button
-                        className="text-2xl bg-blue-500 hover:bg-blue-400 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
+                        className="text-2xl bg-amber-500 hover:bg-amber-400 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
                         onClick={() => {
                             handleLogin(username, password);
                         }}
