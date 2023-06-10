@@ -40,10 +40,19 @@ const Register: React.FC<RegisterProps> = ({ handleRegister, closeDialog }) => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         sx={{
-                            "& .MuiOutlinedInput-root.Mui-focused": {
-                                "& > fieldset": {
-                                    borderColor: "orange"
-                                }
+                            "& .MuiOutlinedInput-root": {
+                                "&:hover": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
+                                "&.Mui-focused": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
                             },
                             input: {color: "#262018"}
                         }}
@@ -74,10 +83,19 @@ const Register: React.FC<RegisterProps> = ({ handleRegister, closeDialog }) => {
                             ),
                         }}
                         sx={{
-                            "& .MuiOutlinedInput-root.Mui-focused": {
-                                "& > fieldset": {
-                                    borderColor: "orange"
-                                }
+                            "& .MuiOutlinedInput-root": {
+                                "&:hover": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
+                                "&.Mui-focused": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
                             },
                             input: {color: "#262018"}
                         }}

@@ -41,10 +41,19 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
                         sx={{
-                            "& .MuiOutlinedInput-root.Mui-focused": {
-                                "& > fieldset": {
-                                    borderColor: "orange"
-                                }
+                            "& .MuiOutlinedInput-root": {
+                                "&:hover": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
+                                "&.Mui-focused": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
                             },
                             input: {color: "#262018"}
                         }}
@@ -75,10 +84,19 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                             ),
                         }}
                         sx={{
-                            "& .MuiOutlinedInput-root.Mui-focused": {
-                                "& > fieldset": {
-                                    borderColor: "orange"
-                                }
+                            "& .MuiOutlinedInput-root": {
+                                "&:hover": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
+                                "&.Mui-focused": {
+                                    "& > fieldset": {
+                                        borderColor: "#262018",
+                                        borderWidth: "2px",
+                                    }
+                                },
                             },
                             input: {color: "#262018"}
                         }}
@@ -94,7 +112,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                             handleLogin(username, password);
                         }}
                     >
-                        Register
+                        Login
                     </button>
                     <button
                         className="text-2xl bg-gray-400 hover:bg-gray-300 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
