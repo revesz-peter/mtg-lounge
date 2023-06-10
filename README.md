@@ -1,4 +1,4 @@
-# Welcome to <img src="https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a" width="100" height="100">
+# Welcome to <img src="https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a" width="100">
 
 ## Table of Contents
 1. [About The Project](#about-the-project)
