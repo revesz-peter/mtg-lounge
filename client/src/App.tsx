@@ -7,6 +7,7 @@ import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
 import ColorFilter from "./components/ColorFilter";
 import { getCardsByColor } from "./services/cardService";
+import icon from "../public/PRM_M.png";
 
 export interface CardType {
     id: string;
@@ -174,7 +175,7 @@ function App() {
                             <Loader />
                         </div>
                     ) : (
-                        <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-4">
+                        <div className="grid sm:grid-cols-3 md:grid-cols-4">
                             {searchText.length > 0 &&
                             searchedResults.length === 0 ? (
                                 <div className="text-xl p-4 flex h-screen text-gray-500">
@@ -335,6 +336,9 @@ function App() {
             {isPortrait && (
                 <div className="h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-black text-gray-500">
                     <div className="text-center">
+                        <img src={icon}/>
+                        <h1 className="text-6xl font-bold mb-4">MTG Lounge</h1>
+
                         <h2 className="text-3xl font-semibold mb-4">
                             Please Rotate Your Device
                         </h2>
