@@ -7,6 +7,7 @@ import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
 import ColorFilter from "./components/ColorFilter";
 import { getCardsByColor } from "./services/cardService";
+import icon from "../public/PRM_M.png";
 
 export interface CardType {
     id: string;
@@ -25,6 +26,9 @@ function App() {
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isPortrait, setIsPortrait] = useState(
+        window.innerHeight > window.innerWidth
+    );
 
     const {
         deck,
@@ -118,14 +122,40 @@ function App() {
         console.log(deck);
     }, [deck]);
 
+    useEffect(() => {
+        let resizeTimeout: number | null = null;
+
+        const handleResize = () => {
+            if (resizeTimeout !== null) {
+                clearTimeout(resizeTimeout);
+            }
+
+            resizeTimeout = window.setTimeout(() => {
+                setIsPortrait(window.innerHeight > window.innerWidth);
+                resizeTimeout = null;
+            }, 250);
+        };
+
+        window.addEventListener("resize", handleResize);
+
+        return () => {
+            if (resizeTimeout !== null) {
+                clearTimeout(resizeTimeout);
+            }
+            window.removeEventListener("resize", handleResize);
+        };
+    }, []);
+
     return (
         <div
             ref={outsideDrop}
             className="h-screen w-screen absolute top-0 left-0"
         >
-            <section className="max-w-7xl mx-auto flex">
+            <section
+                className={`max-w-7xl mx-auto flex ${isPortrait && "hidden"}`}
+            >
                 <div className="w-4/5">
-                    <div className="mt-5">
+                    <div className="flex flex-wrap justify-between mt-5 mb-2">
                         <ColorFilter
                             setSelectedColor={setSelectedColor}
                             selectedColor={selectedColor}
@@ -145,7 +175,7 @@ function App() {
                             <Loader />
                         </div>
                     ) : (
-                        <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                        <div className="grid sm:grid-cols-3 md:grid-cols-4">
                             {searchText.length > 0 &&
                             searchedResults.length === 0 ? (
                                 <div className="text-xl p-4 flex h-screen text-gray-500">
@@ -187,14 +217,17 @@ function App() {
                 </div>
                 <div
                     ref={deckDrop}
-                    style={{ backgroundColor: isOver ? "lightblue" : "white" }}
+                    style={{
+                        backgroundColor: isOver ? "lightblue" : "white",
+                        minWidth: "300px",
+                    }}
                     className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded-lg"
                 >
                     <div className="mt-2 mb-1 flex justify-center items-center px-4">
                         <input
                             type="text"
                             placeholder="New Deck"
-                            className="text-3xl outline-none font-bold w-full py-1 px-2 rounded"
+                            className="text-3xl outline-none font-bold w-full py-1 px-1 rounded truncate"
                             onBlur={(e) => (e.target.style.fontWeight = "bold")}
                             onFocus={(e) =>
                                 (e.target.style.fontWeight = "normal")
@@ -300,6 +333,21 @@ function App() {
                     )}
                 </div>
             </section>
+            {isPortrait && (
+                <div className="h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-black text-gray-500">
+                    <div className="text-center">
+                        <img src={icon}/>
+                        <h1 className="text-6xl font-bold mb-4">MTG Lounge</h1>
+
+                        <h2 className="text-3xl font-semibold mb-4">
+                            Please Rotate Your Device
+                        </h2>
+                        <p className="font-thin">
+                            This application is best viewed in landscape mode.
+                        </p>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
