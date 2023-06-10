@@ -8,6 +8,8 @@ import DeckCard from "./components/DeckCard";
 import ColorFilter from "./components/ColorFilter";
 import { getCardsByColor } from "./services/cardService";
 import icon from "../public/PRM_M.png";
+import Login from "./components/Login";
+import LoginRequired from "./components/LoginRequired";
 
 export interface CardType {
     id: string;
@@ -26,6 +28,7 @@ function App() {
     const [selectedColor, setSelectedColor] = useState<string>("");
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
+    const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
     const [isPortrait, setIsPortrait] = useState(
         window.innerHeight > window.innerWidth
     );
@@ -145,6 +148,10 @@ function App() {
             window.removeEventListener("resize", handleResize);
         };
     }, []);
+
+    const handleLogin = (username: string, password: string) => {
+        // handle the login here
+    };
 
     return (
         <div
@@ -301,42 +308,23 @@ function App() {
                             Done
                         </button>
                     </div>
-                    {isDialogOpen && (
-                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                            <div className="bg-white rounded-lg shadow-2xl p-12 max-w-xl mx-auto border-2 border-gray-300">
-                                <h3 className="text-4xl font-semibold text-gray-400 mb-4">
-                                    Login required
-                                </h3>
-                                <p className="text-gray-600 mb-8">
-                                    You need to log in to save your deck.
-                                </p>
-                                <div className="flex justify-between items-center">
-                                    <button
-                                        style={{ minWidth: "100px" }}
-                                        className="text-xl bg-blue-600 hover:bg-blue-500 text-white px-4 py-2 rounded transition"
-                                        onClick={() => {
-                                            /* upcoming login function */
-                                        }}
-                                    >
-                                        Log in
-                                    </button>
-                                    <button
-                                        style={{ minWidth: "100px" }}
-                                        className="text-xl bg-gray-700 text-white px-4 py-2 rounded transition"
-                                        onClick={() => setIsDialogOpen(false)}
-                                    >
-                                        Close
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                    <LoginRequired
+                        isDialogOpen={isDialogOpen}
+                        setIsDialogOpen={setIsDialogOpen}
+                        setIsLoginDialogOpen={setIsLoginDialogOpen}
+                    />
+                    {isLoginDialogOpen && (
+                        <Login
+                            handleLogin={handleLogin}
+                            closeDialog={() => setIsLoginDialogOpen(false)}
+                        />
                     )}
                 </div>
             </section>
             {isPortrait && (
                 <div className="h-screen w-screen absolute top-0 left-0 flex items-center justify-center bg-black text-gray-500">
                     <div className="text-center">
-                        <img src={icon}/>
+                        <img src={icon} />
                         <h1 className="text-6xl font-bold mb-4">MTG Lounge</h1>
 
                         <h2 className="text-3xl font-semibold mb-4">
