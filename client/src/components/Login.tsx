@@ -1,6 +1,6 @@
 // Login.tsx
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
 interface LoginProps {
     handleLogin: (username: string, password: string) => void;
@@ -8,8 +8,8 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
@@ -18,15 +18,16 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                     Login
                 </h3>
                 <div className="mb-6">
-                    <label 
+                    <label
                         className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="username">
+                        htmlFor="username"
+                    >
                         Username
                     </label>
-                    <input 
-                                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
-                        id="username" 
-                        type="text" 
+                    <input
+                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
+                        id="username"
+                        type="text"
                         placeholder="Username"
                         autoComplete="off"
                         value={username}
@@ -34,14 +35,15 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                     />
                 </div>
                 <div className="mb-8">
-                    <label 
+                    <label
                         className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="password">
+                        htmlFor="password"
+                    >
                         Password
                     </label>
-                    <input 
-                                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
-                        id="password" 
+                    <input
+                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3"
+                        id="password"
                         type="password"
                         autoComplete="off"
                         placeholder="******************"
@@ -68,6 +70,6 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;

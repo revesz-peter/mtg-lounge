@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface LoginRequiredProps {
     isDialogOpen: boolean;
@@ -6,7 +6,11 @@ interface LoginRequiredProps {
     setIsLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const LoginRequired: React.FC<LoginRequiredProps> = ({ isDialogOpen, setIsDialogOpen, setIsLoginDialogOpen }) => {
+const LoginRequired: React.FC<LoginRequiredProps> = ({
+    isDialogOpen,
+    setIsDialogOpen,
+    setIsLoginDialogOpen,
+}) => {
     if (!isDialogOpen) {
         return null;
     }
@@ -37,6 +41,6 @@ const LoginRequired: React.FC<LoginRequiredProps> = ({ isDialogOpen, setIsDialog
             </div>
         </div>
     );
-}
+};
 
 export default LoginRequired;
