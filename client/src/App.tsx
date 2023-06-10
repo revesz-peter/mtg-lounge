@@ -279,7 +279,7 @@ function App() {
                         )}
                     </div>
 
-                    <div className="mb-2 p-1 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
+                    <div className="mb-2 p-2 mt-1 mr-4 ml-4 flex justify-between items-center px-4">
                         <div
                             className="text-xl flex justify-between"
                             style={{ width: "70px" }}
