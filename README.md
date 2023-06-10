@@ -1,4 +1,4 @@
-# MTG Lounge
+# Welcome to ![mtg-lounge-logo](https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a)
 
 ## Table of Contents
 1. [About The Project](#about-the-project)
