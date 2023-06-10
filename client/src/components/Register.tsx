@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import TextField from "@mui/material/TextField";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import lounge from "../../public/mtg-lounge-logo.png";
 
 interface RegisterProps {
@@ -9,48 +14,76 @@ interface RegisterProps {
 const Register: React.FC<RegisterProps> = ({ handleRegister, closeDialog }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
+    const handleClickShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="bg-white rounded-lg shadow-xl p-8 w-1/2 mx-auto border-gray-300 transform scale-90 hover:scale-100 transition-transform duration-300">
                 <div className="flex justify-center items-center border-b pb-4">
-                    <h3 className="text-3xl font-bold text-gray-700 mx-2">
-                        Register to
-                    </h3>
+                    <h3 className="text-3xl font-bold text-gray-700 mx-2">Login to</h3>
                     <img src={lounge} className="h-10 sm:h-14 lg:h-20 xl:h-28 ml-2" />
                 </div>
                 <div className="pt-2 mb-6">
-                    <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="username"
-                    >
-                        Username
-                    </label>
-                    <input
-                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3 outline-amber-500"
-                        id="username"
-                        type="text"
-                        placeholder="Username"
+                    <TextField
+                        label="Username"
+                        variant="outlined"
                         autoComplete="off"
+                        fullWidth
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        sx={{
+                            "& .MuiOutlinedInput-root.Mui-focused": {
+                                "& > fieldset": {
+                                    borderColor: "orange"
+                                }
+                            },
+                            input: {color: "#262018"}
+                        }}
+                        InputLabelProps={{
+                            style: {color: "#262018"},
+                        }}
                     />
                 </div>
                 <div className="mb-8">
-                    <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="password"
-                    >
-                        Password
-                    </label>
-                    <input
-                        className="bg-white border-2 border-gray-300 text-gray-900 rounded-lg block w-full p-3 outline-amber-500"
-                        id="password"
-                        type="password"
+                    <TextField
+                        label="Password"
+                        variant="outlined"
                         autoComplete="off"
-                        placeholder="******************"
+                        type={showPassword ? 'text' : 'password'}
+                        fullWidth
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            ),
+                        }}
+                        sx={{
+                            "& .MuiOutlinedInput-root.Mui-focused": {
+                                "& > fieldset": {
+                                    borderColor: "orange"
+                                }
+                            },
+                            input: {color: "#262018"}
+                        }}
+                        InputLabelProps={{
+                            style: {color: "#262018"},
+                        }}
                     />
                 </div>
                 <div className="grid gap-4">
