@@ -17,7 +17,7 @@ const Register: React.FC<RegisterProps> = ({ handleRegister, closeDialog }) => {
                     <h3 className="text-3xl font-bold text-gray-700 mx-2">
                         Register to
                     </h3>
-                    <img src={lounge} className="h-28 ml-2" />
+                    <img src={lounge} className="h-10 sm:h-14 lg:h-20 xl:h-28 ml-2" />
                 </div>
                 <div className="pt-2 mb-6">
                     <label
