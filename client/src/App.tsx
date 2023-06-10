@@ -7,11 +7,12 @@ import { useDeckManager } from "./hooks/useDeckManager";
 import DeckCard from "./components/DeckCard";
 import ColorFilter from "./components/ColorFilter";
 import { getCardsByColor } from "./services/cardService";
-import icon from "../public/PRM_M.png";
 import Login from "./components/Login";
 import LoginRequired from "./components/LoginRequired";
 import lounge from "../public/mtg-lounge-logo.png";
 import Register from "./components/Register";
+import SunIcon from './icons/SunIcon';
+import MoonIcon from './icons/MoonIcon';
 
 export interface CardType {
     id: string;
@@ -32,6 +33,7 @@ function App() {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
     const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
+    const [nightMode, setNightMode] = useState(false);
     const [isPortrait, setIsPortrait] = useState(
         window.innerHeight > window.innerWidth
     );
@@ -162,8 +164,18 @@ function App() {
     return (
         <div
             ref={outsideDrop}
-            className="h-screen w-screen absolute top-0 left-0"
+            className={`h-screen w-screen absolute top-0 left-0 ${
+                nightMode ? "bg-stone-800" : "bg-stone-200"
+            }`}
         >
+            <div className="absolute top-0 right-0 p-4">
+                <button
+                    onClick={() => setNightMode(!nightMode)}
+                    className="bg-gray-200 hover:bg-gray-300 rounded-full p-2 transition-colors duration-200"
+                >
+                    {nightMode ? <SunIcon /> : <MoonIcon />}
+                </button>
+            </div>
             <section
                 className={`max-w-7xl mx-auto flex ${isPortrait && "hidden"}`}
             >
@@ -209,7 +221,7 @@ function App() {
                             className={`text-3xl px-4 py-2 mr-2 rounded ${
                                 page === 0
                                     ? "bg-gray-200 opacity-50"
-                                    : "bg-gray-200"
+                                    : "bg-white"
                             }`}
                             onClick={() => setPage(page - 1)}
                             disabled={page === 0}
@@ -220,7 +232,7 @@ function App() {
                             className={`text-3xl px-4 py-2 rounded ${
                                 !hasNextPage
                                     ? "bg-gray-200 opacity-50"
-                                    : "bg-gray-200"
+                                    : "bg-white"
                             }`}
                             onClick={() => setPage(page + 1)}
                             disabled={!hasNextPage}
