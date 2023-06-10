@@ -11,6 +11,7 @@ import icon from "../public/PRM_M.png";
 import Login from "./components/Login";
 import LoginRequired from "./components/LoginRequired";
 import lounge from "../public/mtg-lounge-logo.png";
+import Register from "./components/Register";
 
 export interface CardType {
     id: string;
@@ -30,6 +31,7 @@ function App() {
     const [isCopied, setIsCopied] = useState<boolean>(false);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [isLoginDialogOpen, setIsLoginDialogOpen] = useState(false);
+    const [isRegisterDialogOpen, setIsRegisterDialogOpen] = useState(false);
     const [isPortrait, setIsPortrait] = useState(
         window.innerHeight > window.innerWidth
     );
@@ -152,6 +154,9 @@ function App() {
 
     const handleLogin = (username: string, password: string) => {
         // handle the login here
+    };
+    const handleRegister = (username: string, password: string) => {
+        // handle the register here
     };
 
     return (
@@ -314,11 +319,18 @@ function App() {
                         isDialogOpen={isDialogOpen}
                         setIsDialogOpen={setIsDialogOpen}
                         setIsLoginDialogOpen={setIsLoginDialogOpen}
+                        setIsRegisterDialogOpen={setIsRegisterDialogOpen}
                     />
                     {isLoginDialogOpen && (
                         <Login
                             handleLogin={handleLogin}
                             closeDialog={() => setIsLoginDialogOpen(false)}
+                        />
+                    )}
+                    {isRegisterDialogOpen && (
+                        <Register
+                            handleRegister={handleRegister}
+                            closeDialog={() => setIsRegisterDialogOpen(false)}
                         />
                     )}
                 </div>
