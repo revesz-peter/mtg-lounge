@@ -4,12 +4,14 @@ interface LoginRequiredProps {
     isDialogOpen: boolean;
     setIsDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
     setIsLoginDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsRegisterDialogOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const LoginRequired: React.FC<LoginRequiredProps> = ({
     isDialogOpen,
     setIsDialogOpen,
     setIsLoginDialogOpen,
+    setIsRegisterDialogOpen
 }) => {
     if (!isDialogOpen) {
         return null;
@@ -30,6 +32,12 @@ const LoginRequired: React.FC<LoginRequiredProps> = ({
                         onClick={() => setIsLoginDialogOpen(true)}
                     >
                         Log in
+                    </button>
+                    <button
+                        className="text-2xl  bg-amber-600 hover:bg-amber-400 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
+                        onClick={() => setIsRegisterDialogOpen(true)}
+                    >
+                        Register
                     </button>
                     <button
                         className="text-2xl bg-gray-400 hover:bg-gray-300 text-white py-2 px-6 rounded-lg shadow transition-colors duration-200"
