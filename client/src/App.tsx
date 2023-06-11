@@ -11,8 +11,8 @@ import Login from "./components/Login";
 import LoginRequired from "./components/LoginRequired";
 import lounge from "../public/mtg-lounge-logo.png";
 import Register from "./components/Register";
-import SunIcon from './icons/SunIcon';
-import MoonIcon from './icons/MoonIcon';
+import SunIcon from "./icons/SunIcon";
+import MoonIcon from "./icons/MoonIcon";
 import LoginIcon from "./icons/LoginIcon";
 
 export interface CardType {
@@ -179,9 +179,10 @@ function App() {
             </div>
             <div className="absolute top-0 right-16 p-4">
                 <button
+                    onClick={() => setIsDialogOpen(true)}
                     className="bg-stone-200 hover:bg-white rounded-full p-2 transition-colors duration-200"
                 >
-                    <LoginIcon/>
+                    <LoginIcon />
                 </button>
             </div>
             <section
