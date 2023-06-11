@@ -1,5 +1,3 @@
-import React, { useState } from "react";
-
 const colors = ["W", "U", "B", "R", "G"]; // Color symbols
 
 const colorImages: Record<string, string> = {
