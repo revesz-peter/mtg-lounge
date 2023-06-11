@@ -2,39 +2,35 @@
 
 ## Table of Contents
 1. [About The Project](#about-the-project)
-2. [Tech Stack](#built-with)
-3. [Features](#features)
-4. [Getting Started](#getting-started)
+2. [Architecture](#architecture)
+3. [Tech Stack](#built-with)
+4. [Features](#features)
+5. [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
 
 ## About The Project
-This is a responsive and interactive Magic: The Gathering deck builder and comprehensive card database to enhance your gameplay experience. It offers an easy-to-use interface for searching through the MTG card library and creating a custom deck. Features include card search functionality, advanced card filtering options, drag-and-drop deck building, and a simple and clean user interface.
+This is a responsive and interactive Magic: The Gathering deck builder to enhance your gameplay experience. It offers an easy-to-use interface for searching through the MTG card library and creating a custom deck. Features include card search functionality, advanced card filtering options, drag-and-drop deck building, deck export and a simple and clean user interface.
+
+## Architecture
+The application leverages the Scryfall API to populate its PostgreSQL database with MTG card data, ensuring a comprehensive and up-to-date card library. The data is fetched from the database using Spring Boot, Hibernate, and Spring Data JPA, forming a robust backend that provides the frontend with the necessary data. The frontend, built with React and TypeScript, presents the data in a user-friendly interface. This layered architecture promotes modularity, maintainability, and scalability, providing a solid foundation for future enhancements.
 
 ## Built With
 
 This project is built with an array of robust and reliable technologies to ensure high performance and seamless user experience. Below is a list of the major libraries and tools used:
 
 - [React](https://reactjs.org/): A popular JavaScript library for building user interfaces, especially single-page applications.
-
 - [TypeScript](https://www.typescriptlang.org/): A statically typed superset of JavaScript that adds types to the language, improving developer productivity and code quality.
-
 - [Vite](https://vitejs.dev/): A build tool that significantly improves the frontend development experience. It provides faster and leaner development for modern web projects.
-
 - [React Router Dom](https://reactrouter.com/): The standard routing library for React, used to create a single page application with navigation without page refreshes.
-
 - [React DnD](https://react-dnd.github.io/react-dnd/about): A set of React higher-order components to help you build complex drag and drop interfaces while keeping your components decoupled.
-
 - [Tailwind CSS](https://tailwindcss.com/): A highly customizable, low-level CSS framework that gives you all the building blocks you need to build bespoke designs.
-
 - [Spring Boot](https://spring.io/projects/spring-boot): An open-source Java-based framework used to create stand-alone, production-grade Spring-based Applications with minimal effort.
-
 - [Spring Data JPA](https://spring.io/projects/spring-data-jpa): It simplifies the development of creating a data access layer by reducing the amount of boilerplate code required.
-
 - [Hibernate](https://hibernate.org/): An object-relational mapping tool for the Java programming language. It provides a framework for mapping an object-oriented domain model to a relational database, enabling developers to more easily manipulate database data.
-
 - [PostgreSQL](https://www.postgresql.org/): An advanced, open-source relational database management system.
-
+- [Spring Security](https://spring.io/projects/spring-security): A powerful and highly customizable authentication and access-control framework to secure Spring-based applications.
+- [JSON Web Token (JWT)](https://jwt.io/): An open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object.
 - [Lombok](https://projectlombok.org/): A Java library that plugs into your editor and build tools, spicing up your Java by reducing the boilerplate code.
 
 
@@ -72,3 +68,4 @@ This project is built with an array of robust and reliable technologies to ensur
     cd ../client
     npm start
     ```
+
