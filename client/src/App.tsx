@@ -27,7 +27,6 @@ function App() {
     const [allCards, setAllCards] = useState<CardType[]>([]);
     const [searchText, setSearchText] = useState<string>("");
     const [searchedResults, setSearchedResults] = useState<CardType[]>([]);
-    const [searchTimeout, setSearchTimeout] = useState<number | undefined>();
     const [page, setPage] = useState(0);
     const [hasNextPage, setHasNextPage] = useState<boolean>(true);
     const [selectedColor, setSelectedColor] = useState<string>("");
@@ -78,8 +77,6 @@ function App() {
     const handleSearchChange = async (
         e: React.ChangeEvent<HTMLInputElement>
     ) => {
-        // remove timeout for experiment purposes
-        // clearTimeout(searchTimeout);
         const searchTextValue = e.target.value;
         setSearchText(searchTextValue);
 
@@ -89,17 +86,6 @@ function App() {
         } else {
             setSearchedResults([]);
         }
-
-        /* setSearchTimeout(
-            setTimeout(async () => {
-                if (searchTextValue) {
-                    const searchResult = await getCardsByName(searchTextValue);
-                    setSearchedResults(searchResult);
-                } else {
-                    setSearchedResults([]);
-                }
-            }, 500)
-        ); */
     };
 
     const addToDeck = (card: CardType) => {
