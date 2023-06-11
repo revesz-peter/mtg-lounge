@@ -20,7 +20,9 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
         setShowPassword(!showPassword);
     };
 
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = (
+        event: React.MouseEvent<HTMLButtonElement>
+    ) => {
         event.preventDefault();
     };
 
@@ -28,8 +30,13 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="bg-white rounded-lg shadow-xl p-8 w-1/3 mx-auto border-gray-300 transform scale-90 hover:scale-100 transition-transform duration-300">
                 <div className="flex justify-center items-center border-b pb-4">
-                    <h3 className="text-3xl font-bold text-gray-700 mx-2">Log in to</h3>
-                    <img src={lounge} className="h-10 sm:h-14 lg:h-20 xl:h-28 ml-2" />
+                    <h3 className="text-3xl font-bold text-gray-700 mx-2">
+                        Log in to
+                    </h3>
+                    <img
+                        src={lounge}
+                        className="h-10 sm:h-14 lg:h-20 xl:h-28 ml-2"
+                    />
                 </div>
                 <div className="pt-2 mb-6">
                     <TextField
@@ -45,19 +52,19 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                                     "& > fieldset": {
                                         borderColor: "#262018",
                                         borderWidth: "2px",
-                                    }
+                                    },
                                 },
                                 "&.Mui-focused": {
                                     "& > fieldset": {
                                         borderColor: "#262018",
                                         borderWidth: "2px",
-                                    }
+                                    },
                                 },
                             },
-                            input: {color: "#262018"}
+                            input: { color: "#262018" },
                         }}
                         InputLabelProps={{
-                            style: {color: "#262018"},
+                            style: { color: "#262018" },
                         }}
                     />
                 </div>
@@ -66,7 +73,7 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                         label="Password"
                         variant="outlined"
                         autoComplete="off"
-                        type={showPassword ? 'text' : 'password'}
+                        type={showPassword ? "text" : "password"}
                         fullWidth
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -77,7 +84,11 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                                         onClick={handleClickShowPassword}
                                         onMouseDown={handleMouseDownPassword}
                                     >
-                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                        {showPassword ? (
+                                            <VisibilityOff />
+                                        ) : (
+                                            <Visibility />
+                                        )}
                                     </IconButton>
                                 </InputAdornment>
                             ),
@@ -88,19 +99,19 @@ const Login: React.FC<LoginProps> = ({ handleLogin, closeDialog }) => {
                                     "& > fieldset": {
                                         borderColor: "#262018",
                                         borderWidth: "2px",
-                                    }
+                                    },
                                 },
                                 "&.Mui-focused": {
                                     "& > fieldset": {
                                         borderColor: "#262018",
                                         borderWidth: "2px",
-                                    }
+                                    },
                                 },
                             },
-                            input: {color: "#262018"}
+                            input: { color: "#262018" },
                         }}
                         InputLabelProps={{
-                            style: {color: "#262018"},
+                            style: { color: "#262018" },
                         }}
                     />
                 </div>

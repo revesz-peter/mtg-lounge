@@ -1,5 +1,5 @@
 import React from "react";
-import lounge from "../../public/mtg-lounge-logo.png"
+import lounge from "../../public/mtg-lounge-logo.png";
 
 interface LoginRequiredProps {
     isDialogOpen: boolean;
@@ -12,7 +12,7 @@ const LoginRequired: React.FC<LoginRequiredProps> = ({
     isDialogOpen,
     setIsDialogOpen,
     setIsLoginDialogOpen,
-    setIsRegisterDialogOpen
+    setIsRegisterDialogOpen,
 }) => {
     if (!isDialogOpen) {
         return null;
@@ -21,12 +21,15 @@ const LoginRequired: React.FC<LoginRequiredProps> = ({
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
             <div className="bg-white rounded-lg shadow-xl p-8 max-w-xl mx-auto border-gray-300 transform scale-90 hover:scale-100 transition-transform duration-300">
-            <div className="flex justify-center items-center border-b pb-4">
-                    
-                    <img src={lounge} className="h-16 sm:h-18 lg:h-20 xl:h-24" />
+                <div className="flex justify-center items-center border-b pb-4">
+                    <img
+                        src={lounge}
+                        className="h-16 sm:h-18 lg:h-20 xl:h-24"
+                    />
                 </div>
                 <p className="text-gray-600 text-lg mt-2 mb-8 text-center">
-                    You can log in to save your decks <br/> and manage previously built ones.
+                    You can log in to save your decks <br /> and manage
+                    previously built ones.
                 </p>
                 <div className="grid gap-4">
                     <button
