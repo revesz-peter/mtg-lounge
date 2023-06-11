@@ -11,8 +11,9 @@ import Login from "./components/Login";
 import LoginRequired from "./components/LoginRequired";
 import lounge from "../public/mtg-lounge-logo.png";
 import Register from "./components/Register";
-import SunIcon from './icons/SunIcon';
-import MoonIcon from './icons/MoonIcon';
+import SunIcon from "./icons/SunIcon";
+import MoonIcon from "./icons/MoonIcon";
+import LoginIcon from "./icons/LoginIcon";
 
 export interface CardType {
     id: string;
@@ -171,9 +172,17 @@ function App() {
             <div className="absolute top-0 right-0 p-4">
                 <button
                     onClick={() => setNightMode(!nightMode)}
-                    className="bg-gray-200 hover:bg-gray-300 rounded-full p-2 transition-colors duration-200"
+                    className="bg-stone-200 hover:bg-white rounded-full p-2 transition-colors duration-200"
                 >
                     {nightMode ? <SunIcon /> : <MoonIcon />}
+                </button>
+            </div>
+            <div className="absolute top-0 right-16 p-4">
+                <button
+                    onClick={() => setIsDialogOpen(true)}
+                    className="bg-stone-200 hover:bg-white rounded-full p-2 transition-colors duration-200"
+                >
+                    <LoginIcon />
                 </button>
             </div>
             <section
@@ -218,7 +227,7 @@ function App() {
                     )}
                     <div className="flex justify-center">
                         <button
-                            className={`text-3xl px-4 py-2 mr-2 rounded ${
+                            className={`text-3xl px-4 py-2 mr-2 rounded border-2 border-gray-200 ${
                                 page === 0
                                     ? "bg-gray-200 opacity-50"
                                     : "bg-white"
@@ -229,7 +238,7 @@ function App() {
                             ←
                         </button>
                         <button
-                            className={`text-3xl px-4 py-2 rounded ${
+                            className={`text-3xl px-4 py-2 rounded border-2 border-gray-200 ${
                                 !hasNextPage
                                     ? "bg-gray-200 opacity-50"
                                     : "bg-white"
