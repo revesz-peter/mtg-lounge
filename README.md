@@ -35,11 +35,13 @@ This project is built with an array of reliable technologies to ensure high perf
 
 
 ## Features
-1. **Card Search**: Search through the MTG card library using the search field. The search is responsive and the results are displayed in a grid format.
-2. **Advanced Filtering**: Users can filter the card library based on mana cost, set, and other attributes.
-3. **Drag-and-Drop Deck Building**: Users can drag cards from the search results into their deck. Cards in the deck are displayed in a condensed format.
-4. **Deck Export**: With a single click, users can copy their custom deck to the clipboard in a format acceptable for MTG Arena. This feature simplifies the process of importing decks into the game.
-5. **Responsive Design**: The application has a responsive design and can be used on various devices with different screen sizes.
+1. **User Registration & Login**: In order to save decks and manage previously built decks, users need to register and log in to the platform. This ensures a personalized experience for each user.
+2. **Card Search**: Search through the MTG card library using the search field. The search is responsive and the results are displayed in a grid format.
+3. **Advanced Filtering**: Users can filter the card library based on mana cost, set, and other attributes.
+4. **Drag-and-Drop Deck Building**: Users can drag cards from the search results into their deck. Cards in the deck are displayed in a condensed format.
+5. **Deck Saving & Management**: Registered users can save their custom decks for future use and manage them from their personal dashboard.
+6. **Deck Export**: All users, whether logged in or not, can copy their custom deck to the clipboard in a format acceptable for MTG Arena with a single click. This feature simplifies the process of importing decks into the game.
+7. **Responsive Design**: The application has a responsive design and can be used on various devices with different screen sizes.
 
 ## Getting Started
 ### Prerequisites
