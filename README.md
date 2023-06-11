@@ -17,7 +17,7 @@ The application leverages the Scryfall API to populate its PostgreSQL database w
 
 ## Built With
 
-This project is built with an array of robust and reliable technologies to ensure high performance and seamless user experience. Below is a list of the major libraries and tools used:
+This project is built with an array of reliable technologies to ensure high performance and seamless user experience. Below is a list of the major libraries and tools used:
 
 - [React](https://reactjs.org/): A popular JavaScript library for building user interfaces, especially single-page applications.
 - [TypeScript](https://www.typescriptlang.org/): A statically typed superset of JavaScript that adds types to the language, improving developer productivity and code quality.
