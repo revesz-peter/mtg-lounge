@@ -1,4 +1,4 @@
-# Welcome to <img src="https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a" width="200">
+# <img src="https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a" width="300">
 
 ## Table of Contents
 1. [About The Project](#about-the-project)
@@ -42,7 +42,8 @@ This project is built with an array of robust and reliable technologies to ensur
 1. **Card Search**: Search through the MTG card library using the search field. The search is responsive and the results are displayed in a grid format.
 2. **Advanced Filtering**: Users can filter the card library based on mana cost, set, and other attributes.
 3. **Drag-and-Drop Deck Building**: Users can drag cards from the search results into their deck. Cards in the deck are displayed in a condensed format.
-4. **Responsive Design**: The application has a responsive design and can be used on various devices with different screen sizes.
+4. **Deck Export**: With a single click, users can copy their custom deck to the clipboard in a format acceptable for MTG Arena. This feature simplifies the process of importing decks into the game.
+5. **Responsive Design**: The application has a responsive design and can be used on various devices with different screen sizes.
 
 ## Getting Started
 ### Prerequisites
