@@ -14,6 +14,7 @@ import Register from "./components/Register";
 import SunIcon from "./icons/SunIcon";
 import MoonIcon from "./icons/MoonIcon";
 import LoginIcon from "./icons/LoginIcon";
+import "./index.css";
 
 export interface CardType {
     id: string;
@@ -252,24 +253,28 @@ function App() {
                 </div>
                 <div
                     ref={deckDrop}
-                    style={{
-                        backgroundColor: isOver ? "lightblue" : "white",
-                        minWidth: "300px",
-                    }}
-                    className="w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded-lg"
+                    className={`w-1/3 border-2 border-gray-300 h-screen max-h-[90vh] ml-4 m-7 flex flex-col rounded-lg ${
+                        isOver ? "light-orange-bg" : "white-bg"
+                    }`}
                 >
                     <div className="mt-2 mb-1 flex justify-center items-center px-4">
                         <input
                             type="text"
                             placeholder="New Deck"
-                            className="text-3xl outline-none font-bold w-full py-1 px-1 rounded truncate"
+                            className={`text-3xl outline-none font-bold w-full py-1 px-1 rounded truncate ${
+                                isOver ? "light-orange-bg" : "white-bg"
+                            }`}
                             onBlur={(e) => (e.target.style.fontWeight = "bold")}
                             onFocus={(e) =>
                                 (e.target.style.fontWeight = "normal")
                             }
                         />
                     </div>
-                    <div className="overflow-y-scroll flex-grow">
+                    <div
+                        className={`overflow-y-scroll flex-grow ${
+                            isOver ? "light-orange-bg" : "white-bg"
+                        }`}
+                    >
                         {Array.from(new Set(deck.map((card) => card.id))).map(
                             (id) => {
                                 const card = deck.find(

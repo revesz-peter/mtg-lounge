@@ -5,3 +5,37 @@
 * {
     font-family: "Inter", sans-serif;
 }
+
+.light-orange-bg {
+    background-color: #f9f5ee;
+}
+
+.white-bg {
+    background-color: white;
+}
+
+/* Webkit browsers */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: lightgray;
+}
+
+body:hover::-webkit-scrollbar-thumb {
+    background: lightblue;
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: lightgray transparent;
+}
+
+*:hover {
+    scrollbar-color: lightblue transparent;
+}
