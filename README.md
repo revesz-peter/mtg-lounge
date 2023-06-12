@@ -1,6 +1,7 @@
 # <img src="https://github.com/revesz21/mtg-lounge/assets/106816098/f7456ef0-33c9-4bc0-9663-1c620659245a" width="300">
 
 ## Table of Contents
+
 1. [About The Project](#about-the-project)
 2. [Architecture](#architecture)
 3. [Tech Stack](#built-with)
@@ -10,9 +11,11 @@
     - [Installation](#installation)
 
 ## About The Project
+
 This is a responsive and interactive Magic: The Gathering deck builder to enhance your gameplay experience. It offers an easy-to-use interface for searching through the MTG card library and creating a custom deck. Features include card search functionality, advanced card filtering options, drag-and-drop deck building, deck export and a simple and clean user interface.
 
 ## Architecture
+
 The application leverages the Scryfall API to populate its PostgreSQL database with MTG card data, ensuring a comprehensive and up-to-date card library. The data is fetched from the database using Spring Boot, Hibernate, and Spring Data JPA, forming a robust backend that provides the frontend with the necessary data. The frontend, built with React and TypeScript, presents the data in a user-friendly interface. This layered architecture promotes modularity, maintainability, and scalability, providing a solid foundation for future enhancements.
 
 ## Built With
@@ -35,7 +38,8 @@ This project is built with an array of reliable technologies to ensure high perf
 
 
 ## Features
-1. **User Registration & Login**: In order to save decks and manage previously built decks, users need to register and log in to the platform. This ensures a personalized experience for each user.
+
+1. **User Registration & Login**: In order to save decks and manage previously built ones, users need to register and log in to the platform. This ensures a personalized experience for each user.
 2. **Card Search**: Search through the MTG card library using the search field. The search is responsive and the results are displayed in a paginated grid format.
 3. **Advanced Filtering**: Users can filter the card library based on mana cost, set, and color.
 4. **Drag-and-Drop Deck Building**: Users can drag cards from the search results into their deck. Cards in the deck are displayed in a condensed format.
@@ -44,30 +48,40 @@ This project is built with an array of reliable technologies to ensure high perf
 7. **Responsive Design**: The application has a responsive design and can be used on various devices with different screen sizes.
 
 ## Getting Started
+
 ### Prerequisites
+
 - Node.js
 - Java 8 or newer
 - Maven
 - PostgreSQL
 
 ### Installation
+
 1. Clone the repo
+
     ```sh
     git clone https://github.com/revesz21/mtg-lounge.git
     ```
+    
 2. Install NPM packages
+
     ```bash
     cd client
     npm install
     ```
+    
 3. Run the Spring Boot server
+
     ```bash
     cd ../server
     mvn spring-boot:run
     ```
+    
 4. Start the React app (in another terminal window)
     ```bash
     cd ../client
     npm start
     ```
+    
 
