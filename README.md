@@ -2,6 +2,7 @@
 
 ## Table of Contents
 
+
 1. [About The Project](#about-the-project)
 2. [Architecture](#architecture)
 3. [Tech Stack](#built-with)
@@ -10,7 +11,10 @@
     - [Prerequisites](#prerequisites)
     - [Installation](#installation)
 
+
 ## About The Project
+
+<img src="https://github.com/revesz21/mtg-lounge/assets/106816098/d5049f1c-032d-444c-b9a7-255dace68c09" width="550">
 
 This is a responsive and interactive Magic: The Gathering deck builder to enhance your gameplay experience. It offers an easy-to-use interface for searching through the MTG card library and creating a custom deck. Features include card search functionality, advanced card filtering options, drag-and-drop deck building, deck export and a simple and clean user interface.
 
