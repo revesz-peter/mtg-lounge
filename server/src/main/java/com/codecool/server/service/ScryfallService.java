@@ -70,7 +70,7 @@ public class ScryfallService {
         }
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void fetchAndSaveSetCards() {
 
         try {
