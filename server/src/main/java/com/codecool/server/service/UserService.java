@@ -16,11 +16,17 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public void saveUser(UserDTO userDTO){
+    public UserDTO saveUser(UserDTO userDTO){
+        User existingUser = userRepository.findByUsername(userDTO.username());
+        if (existingUser != null) {
+            throw new RuntimeException("Username already taken");
+        }
+
         User user = new User();
         user.setUsername(userDTO.username());
         user.setPassword(userDTO.password());
         userRepository.save(user);
+        return userDTO;
     }
 }
 
