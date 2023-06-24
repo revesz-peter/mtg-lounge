@@ -146,8 +146,27 @@ function App() {
         // handle the login here
     };
     const handleRegister = (username: string, password: string) => {
-        // handle the register here
-    };
+        fetch("http://127.0.0.1:8080/api/users/register", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({username, password}),
+        })
+        .then((response) => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Response not ok: ' + response.statusText);
+            }
+        })
+        .then((data) => {
+            console.log("Success:", data);
+        })
+        .catch((error) => {
+            console.error("Error:", error);
+        });
+    }
 
     return (
         <div
