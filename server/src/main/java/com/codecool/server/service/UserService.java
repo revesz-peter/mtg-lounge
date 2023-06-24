@@ -16,6 +16,10 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
+    public User findUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
     public UserDTO saveUser(UserDTO userDTO){
         User existingUser = userRepository.findByUsername(userDTO.username());
         if (existingUser != null) {
