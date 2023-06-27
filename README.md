@@ -86,6 +86,7 @@ This project is built with an array of reliable technologies to ensure high perf
 
 3. On the server side, set the `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` fields in the `application.properties` file to the URL, username, and password of your PostgreSQL database, respectively. For example:
     ```properties
+    spring.datasource.driver-class-name=org.postgresql.Driver
     spring.datasource.url=jdbc:postgresql://localhost:5432/mtg_lounge
     spring.datasource.username=postgres
     spring.datasource.password=your-password
