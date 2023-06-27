@@ -9,6 +9,7 @@
 4. [Features](#features)
 5. [Getting Started](#getting-started)
     - [Prerequisites](#prerequisites)
+    - [Setting up PostgreSQL](#setting-up-postgresql-server)
     - [Installation](#installation)
 
 
@@ -60,6 +61,14 @@ This project is built with an array of reliable technologies to ensure high perf
 - Maven
 - PostgreSQL
 
+### Setting Up PostgreSQL Server
+
+1. Download and install PostgreSQL from [here](https://www.postgresql.org/download/).
+
+2. Once installed, open the pgAdmin tool that comes with PostgreSQL.
+
+3. Create a new database for this project. You can name it `mtg_lounge`.
+
 ### Installation
 
 1. Clone the repo
@@ -74,15 +83,22 @@ This project is built with an array of reliable technologies to ensure high perf
     cd client
     npm install
     ```
+
+3. On the server side, set the `spring.datasource.url`, `spring.datasource.username`, and `spring.datasource.password` fields in the `application.properties` file to the URL, username, and password of your PostgreSQL database, respectively. For example:
+    ```properties
+    spring.datasource.url=jdbc:postgresql://localhost:5432/mtg_lounge
+    spring.datasource.username=postgres
+    spring.datasource.password=your-password
+    ```
     
-3. Run the Spring Boot server
+4. Run the Spring Boot server
 
     ```bash
     cd ../server
     mvn spring-boot:run
     ```
     
-4. Start the React app (in another terminal window)
+5. Start the React app (in another terminal window)
     ```bash
     cd ../client
     npm start
