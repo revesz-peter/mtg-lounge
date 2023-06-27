@@ -102,7 +102,7 @@ This project is built with an array of reliable technologies to ensure high perf
 5. Start the React app (in another terminal window)
     ```bash
     cd ../client
-    npm start
+    npm run dev
     ```
     
 
