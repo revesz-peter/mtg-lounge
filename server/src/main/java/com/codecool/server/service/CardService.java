@@ -28,7 +28,7 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public List<CardDTO> getCardsByColor(String color, int page) {
-        int pageSize = 8; // Fixed page size of 8
+        int pageSize = 8;
         List<Card> allCards = cardRepository.findByManaCostContaining(color);
         int start = Math.min(page * pageSize, allCards.size());
         int end = Math.min(start + pageSize, allCards.size());
@@ -56,7 +56,7 @@ public class CardService {
 
     @Transactional(readOnly = true)
     public List<CardDTO> getCardsByNameContaining(String name, int page) {
-        int pageSize = 8; // Fixed page size of 8
+        int pageSize = 8;
         List<Card> allCards = cardRepository.findByNameContainingIgnoreCase(name);
         int start = Math.min(page * pageSize, allCards.size());
         int end = Math.min(start + pageSize, allCards.size());
