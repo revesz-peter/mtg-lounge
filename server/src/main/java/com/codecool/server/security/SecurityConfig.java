@@ -19,6 +19,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import static org.springframework.security.config.Customizer.withDefaults;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -34,16 +36,18 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtService jwtService,
                                                    AuthenticationManager authenticationManager,
                                                    UserDetailsService userDetailsService) throws Exception {
-        http.csrf().disable();
-        http.authorizeHttpRequests()
-                .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/register").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/cards/**").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .cors();
-        http.addFilter(new CustomUsernamePasswordAuthenticationFilter(jwtService, authenticationManager));
-        http.addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService), CustomUsernamePasswordAuthenticationFilter.class);
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.POST, "/api/users/login", "/api/users/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/cards/**").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .cors(withDefaults())
+                .addFilter(new CustomUsernamePasswordAuthenticationFilter(jwtService, authenticationManager))
+                .addFilterBefore(new JwtAuthenticationFilter(jwtService, userDetailsService), CustomUsernamePasswordAuthenticationFilter.class)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         return http.build();
     }
 
