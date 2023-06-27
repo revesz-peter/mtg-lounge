@@ -70,15 +70,15 @@ public class ScryfallService {
         }
     }
 
-    @PostConstruct
+    //@PostConstruct
     public void fetchAndSaveSetCards() {
 
         try {
             List<Map<String, Object>> cardsData = new ArrayList<>();
             int page = 1;
-            int pageSize = 271; // Total number of cards in the set
+            int pageSize = 271; //total number of cards in the set
 
-            // Fetch all pages of cards
+            //fetch all pages of cards
             while (cardsData.size() < pageSize) {
                 String pageUrl = URL + "&page=" + page;
                 Map<String, Object> pageData = restTemplate.getForObject(pageUrl, Map.class);
@@ -89,7 +89,7 @@ public class ScryfallService {
                 page++;
             }
 
-            // Save cards to the database
+            //save cards to the database
             for (Map<String, Object> cardData : cardsData) {
                 Card card = new Card();
                 card.setId((String) cardData.get("id"));

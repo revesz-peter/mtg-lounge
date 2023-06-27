@@ -27,4 +27,7 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Deck> decks;
+
+    @Column
+    private boolean isAdmin;
 }

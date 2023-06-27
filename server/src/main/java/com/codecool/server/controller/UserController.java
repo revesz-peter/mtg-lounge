@@ -31,7 +31,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<UserDTO> login(@RequestBody UserDTO userDTO) {
-        User user = userService.findUserByUsername(userDTO.username());
+        User user = userService.findUserByUsername(userDTO.username()).orElse(null);
         if (user == null || !user.getPassword().equals(userDTO.password())) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid credentials");
         }

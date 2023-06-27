@@ -6,6 +6,8 @@ import com.codecool.server.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
@@ -16,13 +18,13 @@ public class UserService {
         this.userRepository = userRepository;
     }
 
-    public User findUserByUsername(String username) {
+    public Optional<User> findUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
     public UserDTO saveUser(UserDTO userDTO){
-        User existingUser = userRepository.findByUsername(userDTO.username());
-        if (existingUser != null) {
+        User existingUser = userRepository.findByUsername(userDTO.username()).orElse((null));
+        if(existingUser!=null){
             throw new RuntimeException("Username already taken");
         }
 
